@@ -26,6 +26,7 @@ class Audition(db.Model):
 
      audition_id = db.Column(db.Integer, primary_key=True)
      project = db.Column(db.String, nullable=False)
+     role = db.Column(db.String, nullable=False)
      date = db.Column(db.Date, nullable=False)
      comments = db.Column(db.String)
 
@@ -58,7 +59,7 @@ class AuditionSchema(ma.Schema):
     class Meta:
         model = Audition
 
-    fields = ("project", "date", "comments")    
+    fields = ("project", "role", "date", "comments")    
 
 audition_schema = AuditionSchema()
 audition_schema = AuditionSchema(many=True)
@@ -88,3 +89,31 @@ audition_schema = ActorSchema(many=True)
 def create_db():
     db.create_all()
     print("Tables created")
+
+@app.cli.command('drop')
+def drop_db():
+    db.drop_all()
+    print("Tables dropped")
+
+## Add date functions
+@app.cli.command('seed')
+def seed_db():
+    auditions = [
+        Audition(
+            project = 'Untitled Batman project',
+            role = 'Mr Freeze',
+            date = '07/04/2025',
+            comments = 'The Casting director asked me to do a second take. In this take they requested I scream when I see Batman.',
+            ),
+        Audition(
+            project = 'The Last of us',
+            role = 'Zombie',
+            date = '07/04/2023',
+            comments = 'In the audition I decided to improvise a line as the zombie, I went "Argh". Director responded well.',
+        )
+    ]
+            
+    
+    db.session.add_all(auditions)
+    db.session.commit()
+    print('Tables Seeded')
