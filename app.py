@@ -8,7 +8,6 @@ app = Flask(__name__)
 
 app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql+psycopg2://audition.db"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
-app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 ##app.config ['JSON_SORT_KEYS'] = False
 ##app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
 ##app.config['JWT_SECRET_KEY'] = os.environ.get('JWT_SECRET_KEY')
@@ -20,6 +19,13 @@ ma = Marshmallow()
 @app.route('/')
 def index():
     return "Hello world"
+
+@app.route('/auditions/')
+def all_auditions():
+    stmt = db.select(Audition).order_by(Audition.desc(), Audition.title)
+    auditions = db.session.scalars(stmt)
+    return AuditionSchema(many=True).drump(auditions)
+
 
 class Audition(db.Model):
      __tablename__ = "auditions"
@@ -84,18 +90,21 @@ class ActorSchema(ma.Schema):
 audition_schema = ActorSchema()
 audition_schema = ActorSchema(many=True)
 
-
+## Creates our tables
 @app.cli.command("create")
 def create_db():
     db.create_all()
     print("Tables created")
-
+ # Drops a table from the database
 @app.cli.command('drop')
 def drop_db():
     db.drop_all()
     print("Tables dropped")
 
-## Add date functions
+## TO DO Add date functions
+
+ # Seeds our Database
+ ## EXAMPLE AUDITIONS
 @app.cli.command('seed')
 def seed_db():
     auditions = [
