@@ -7,7 +7,6 @@ from flask_marshmallow import Marshmallow
 app = Flask(__name__)
 
 app.config["SQLALCHEMY_DATABASE_URI"] = 'postgresql+psycopg2://db_dev:passwordcoder@127.0.01:5432/auditiondb'
-##app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql+psycopg2://trello_dev:password123@127.0.0.1:5432/trello'
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 app.config ['JSON_SORT_KEYS'] = False
 ##app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
@@ -50,7 +49,7 @@ class UserSchema(ma.Schema):
 class Audition(db.Model):
      __tablename__ = "auditions"
 
-     audition_id = db.Column(db.Integer, primary_key=True)
+     id = db.Column(db.Integer, primary_key=True)
      project = db.Column(db.String, nullable=False)
      role = db.Column(db.String, nullable=False)
      date = db.Column(db.Date, nullable=False)
@@ -63,7 +62,7 @@ class Audition(db.Model):
 class Casting(db.Model):
      __tablename__ = "castings"
 
-     casting_id = db.Column(db.Integer, primary_key=True)
+     id = db.Column(db.Integer, primary_key=True)
      director = db.Column(db.String, nullable=False)
      location = db.Column(db.String, nullable=False)
 
@@ -71,7 +70,7 @@ class Casting(db.Model):
 class Actor(db.Model):
      __tablename__ = "actors"
 
-     actor_id = db.Column(db.Integer, primary_key=True)
+     id = db.Column(db.Integer, primary_key=True)
      f_name = db.Column(db.String, nullable=False)
      l_name = db.Column(db.String, nullable=False)
      agency = db.Column(db.String, nullable=False)
