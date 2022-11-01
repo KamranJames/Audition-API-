@@ -6,9 +6,10 @@ from flask_marshmallow import Marshmallow
 
 app = Flask(__name__)
 
-app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql+psycopg2://audition.db"
+app.config["SQLALCHEMY_DATABASE_URI"] = 'postgresql+psycopg2://db_dev:passwordcoder@127.0.01:5432/auditiondb'
+##app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql+psycopg2://trello_dev:password123@127.0.0.1:5432/trello'
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
-##app.config ['JSON_SORT_KEYS'] = False
+app.config ['JSON_SORT_KEYS'] = False
 ##app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
 ##app.config['JWT_SECRET_KEY'] = os.environ.get('JWT_SECRET_KEY')
 
@@ -24,7 +25,26 @@ def index():
 def all_auditions():
     stmt = db.select(Audition).order_by(Audition.desc(), Audition.title)
     auditions = db.session.scalars(stmt)
-    return AuditionSchema(many=True).drump(auditions)
+    ## Scalars returns all, if we want one use scalar.
+    return AuditionSchema(many=True).dump(auditions)
+
+
+## TEST FOR AUTH 
+class Users(db.Model):
+      __tablename__ = 'users'
+
+      id = db.Column(db.Integer, primary_key=True)
+      name = db.Column(db.String)
+      email = db.Column(db.String, unique = True)
+      ## NOT NULL/ NEED A PASSWORD
+      password = db.Column(db.String, nullable=False)
+      ## Default the admin is FALSE.
+      is_admin = db.Column(db.Boolean, default=False) 
+    
+class UserSchema(ma.Schema):
+    class Meta:
+        fields = ('id', 'name', 'email', 'is_admin')
+
 
 
 class Audition(db.Model):
