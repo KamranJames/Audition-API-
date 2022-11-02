@@ -27,7 +27,6 @@ def create_app():
 
    ## Sets our apps URI - to whats in our .env 
    app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
-   DATABASE_URL=app.config["SQLALCHEMY_DATABASE_URI"] = 'postgresql+psycopg2://db_dev:passwordcoder@127.0.01:5432/auditiondb'
    db.init_app(app)
    ma.init_app(app)
 
