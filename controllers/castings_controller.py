@@ -23,6 +23,6 @@ def all_castings():
 ## Allows us to select a casting by the id from db
 @castings_bp.route('/<int:id>/')
 def one_casting(id):
-    stmt = db.select(Casting).filer_by(id=id)
+    stmt = db.select(Casting).filter_by(id=id)
     casting = db.session.scalar(stmt)
     return CastingSchema().dump(casting)

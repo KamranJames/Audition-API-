@@ -23,6 +23,6 @@ def all_actors():
 ## Allows us to select an actor by their id from db
 @actors_bp.route('/<int:id>/')
 def one_actor(id):
-    stmt = db.select(Actor).filer_by(id=id)
+    stmt = db.select(Actor).filter_by(id=id)
     actor = db.session.scalar(stmt)
     return ActorSchema().dump(actor)

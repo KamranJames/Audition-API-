@@ -23,6 +23,6 @@ def all_projects():
 ## Allows us to select a project by the id from db
 @projects_bp.route('/<int:id>/')
 def one_project(id):
-    stmt = db.select(Project).filer_by(id=id)
+    stmt = db.select(Project).filter_by(id=id)
     project = db.session.scalar(stmt)
     return ProjectSchema().dump(project)

@@ -23,6 +23,6 @@ def all_users():
 ## Allows us to select a user by their id from db
 @users_bp.route('/<int:id>/')
 def one_user(id):
-    stmt = db.select(User).filer_by(id=id)
+    stmt = db.select(User).filter_by(id=id)
     user = db.session.scalar(stmt)
     return UserSchema().dump(user)
