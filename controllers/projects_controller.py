@@ -20,7 +20,7 @@ def all_projects():
 
 ## Will auto convert whatever request comes in as an int
 
-## Allows us to select a casting by the id from db
+## Allows us to select a project by the id from db
 @projects_bp.route('/<int:id>/')
 def one_project(id):
     stmt = db.select(Project).filer_by(id=id)

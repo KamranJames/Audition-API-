@@ -20,7 +20,7 @@ def all_actors():
 
 ## Will auto convert whatever request comes in as an int
 
-## Allows us to select a user by their id from db
+## Allows us to select an actor by their id from db
 @actors_bp.route('/<int:id>/')
 def one_actor(id):
     stmt = db.select(Actor).filer_by(id=id)
