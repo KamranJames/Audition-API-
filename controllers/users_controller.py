@@ -10,6 +10,7 @@ bcrypt = Bcrypt()
 ## Parameters for our blueprint 
 users_bp = Blueprint('users', __name__, url_prefix='/users')
 
+#Get all users/requires authentication & authorization
 users_bp.route('/')
 ##@jwt_required()
 def all_users():
@@ -22,9 +23,8 @@ def all_users():
            return UserSchema.dump()
     return UserSchema(many=True).dump(users)
 
-## Will auto convert whatever request comes in as an int
 
-## Allows us to select a user by their id from db
+## Get a single user
 @users_bp.route('/<int:id>/')
 def one_user(id):
     stmt = db.select(User).filter_by(id=id)
@@ -34,6 +34,7 @@ def one_user(id):
     else:
         return {'error': f'User not found with id {id}'}, 404
 
+## Post a new user
 @users_bp.route('/', methods=['POST'])
 def auth_register():
     try:
@@ -50,3 +51,21 @@ def auth_register():
         #Error message if user is already registered.
     except IntegrityError:
         return {'error': 'Email address already in use'}, 409
+
+#Delete a user from the db
+@users_bp.route('/<int:id>/', methods = ['DELETE'])
+##@jwt_required()
+def delete_one_user(id):
+    ##authorize()
+    ##if not authorize():
+        ##return {'error': 'You must be an admin'}, 401 
+    
+    stmt = db.select(User).filter_by(id=id)
+    users = db.session.scalar(stmt)
+    if user: 
+        #Delete and commit changes to db
+           db.session.delete(User)
+           db.session.commit()
+           return {'message': f"User '{User.title}' deleted successfully"}
+    else:
+        return {'error': f'User not found with id {id}'}, 404
