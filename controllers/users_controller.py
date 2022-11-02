@@ -19,7 +19,7 @@ def all_users():
     
     stmt = db.select(User).order_by(User.desc(), User.title)
     users = db.session.scalars(stmt)
-    if user: 
+    if User: 
            return UserSchema.dump()
     return UserSchema(many=True).dump(users)
 
@@ -62,7 +62,7 @@ def delete_one_user(id):
     
     stmt = db.select(User).filter_by(id=id)
     users = db.session.scalar(stmt)
-    if user: 
+    if User: 
         #Delete and commit changes to db
            db.session.delete(User)
            db.session.commit()
