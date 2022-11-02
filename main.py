@@ -19,6 +19,6 @@ def create_app():
    db.init_app(app)
    ma.init_app(app)
 
-   app.register_blueprint(cards_bp)
+   app.register_blueprint(users_bp)
 
    return app 
