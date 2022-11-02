@@ -1,10 +1,12 @@
-from flask import Blueprint
+from flask import Blueprint, request
+from flask_bcrypt import Bcrypt
 from init import db
 from models.user import User, UserSchema
+from sqlalchemy.exc import IntegrityError
 
 ## USERS CONTROLLER
 
-
+bcrypt = Bcrypt()
 ## Parameters for our blueprint 
 users_bp = Blueprint('users', __name__, url_prefix='/users')
 
@@ -32,19 +34,19 @@ def one_user(id):
     else:
         return {'error': f'User not found with id {id}'}, 404
 
-@app.route('/', methods=['POST'])
+@users_bp.route('/', methods=['POST'])
 def auth_register():
     try:
+        # Create a new User model instance
         user = User(
+            name = request.json['name'],
             email=request.json['email'],
-            password=bcrypt.generate_password_hash(request.json['password']).decode('utf-8'),
-            name = request.json['name']
-    
+            password=bcrypt.generate_password_hash(request.json['password']).decode('utf-8')
         )
-        # Add a user to Database
+        # Add & commit user to Database
         db.session.add(user)
         db.session.commit()
-
         return UserSchema(exclude=['password']).dump(user), 201
+        #Error message if user is already registered.
     except IntegrityError:
         return {'error': 'Email address already in use'}, 409
