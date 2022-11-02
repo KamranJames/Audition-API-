@@ -14,6 +14,13 @@ import os
 
 def create_app():
    app = Flask(__name__)
+  
+
+  ## APP WIDE Error handler/catches all 404 errors/converts to json
+   @app.errorhandler(404)
+   def not_found(err):
+      return {'error': str(err)}, 404
+      
    
    ## Turns off alphabetical sorting
    app.config ['JSON_SORT_KEYS'] = False
