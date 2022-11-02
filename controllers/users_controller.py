@@ -1,5 +1,5 @@
 from flask import Blueprint
-from db import db
+from init import db
 from models.user import User, UserSchema
 
 ## USERS CONTROLLER
@@ -17,3 +17,12 @@ def all_users():
     stmt = db.select(User).order_by(User.desc(), User.title)
     users = db.session.scalars(stmt)
     return UserSchema(many=True).dump(users)
+
+## Will auto convert whatever request comes in as an int
+
+## Allows us to select a user by their id from db
+@users_bp.route('/<int:id>/')
+def one_user(id):
+    stmt = db.select(User).filer_by(id=id)
+    user = db.session.scalar(stmt)
+    return UserSchema().dump(user)

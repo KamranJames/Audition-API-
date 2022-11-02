@@ -1,4 +1,4 @@
-from db import db, ma
+from init import db, ma
 
 ## Model 
 class User(db.Model):
@@ -13,6 +13,10 @@ class User(db.Model):
 ## Schema 
 class UserSchema(ma.Schema):
     class Meta:
+        model = User
         fields = ('id', 'name', 'email', 'password', 'is_admin')
         ordered = True
+
+User_schema = UserSchema()
+User_schema = UserSchema(many=True)
 
