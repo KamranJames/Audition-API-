@@ -12,6 +12,7 @@ users_bp = Blueprint('users', __name__, url_prefix='/users')
 
 #Get all users/requires authentication & authorization
 @users_bp.route('/')
+@jwt_required()
 def get_all_users():
     if not authorize():
         return {'error': 'You must be an admin'}, 401 
