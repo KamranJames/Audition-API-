@@ -10,13 +10,13 @@ class User(db.Model):
     password = db.Column(db.String, nullable=False)
     is_admin = db.Column(db.Boolean, default=False)
 
-## Schema 
+# Schema 
 class UserSchema(ma.Schema):
     class Meta:
-        model = User
+        #model = User
         fields = ('id', 'name', 'email', 'password', 'is_admin')
-        ordered = True
+        #ordered = True
 
-User_schema = UserSchema()
-User_schema = UserSchema(many=True)
+#User_schema = UserSchema()
+#User_schema = UserSchema(many=True)
 
