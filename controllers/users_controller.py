@@ -13,7 +13,7 @@ users_bp = Blueprint('users', __name__, url_prefix='/users')
 #Get all users/requires authentication & authorization
 @users_bp.route('/')
 ##@jwt_required()
-def all_users():
+def get_all_users():
     ##if not authorize():
         ##return {'error': 'You must be an admin'}, 401 
     
@@ -26,7 +26,7 @@ def all_users():
 
 ## Get a single user
 @users_bp.route('/<int:id>/')
-def one_user(id):
+def get_one_user(id):
     stmt = db.select(User).filter_by(id=id)
     user = db.session.scalar(stmt)
     if user:
