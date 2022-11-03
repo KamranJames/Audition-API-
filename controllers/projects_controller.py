@@ -20,7 +20,7 @@ def get_all_projects():
 
 ## Will auto convert whatever request comes in as an int
 
-## Allows us to select a project by the id from db
+## Select a project by the id from db
 @projects_bp.route('/<int:id>/')
 def get_one_project(id):
     stmt = db.select(Project).filter_by(id=id)
@@ -30,7 +30,7 @@ def get_one_project(id):
 
 
 
-#Edits a single project
+#Edit a single project
 @projects_bp.route('/<int:id>/', methods = ['PUT', 'PATCH'])
 def update_one_project(id):
     stmt = db.select(Project).filter_by(id=id)
