@@ -9,15 +9,14 @@ from controllers.projects_controller import projects_bp
 from controllers.auth_controller import auth_bp
 import os
 
-##from flask_bcrypt import Bcrypt
-##from sqlalchemy.exc import IntegrityError
+
 
 
 def create_app():
    app = Flask(__name__)
   
 
-  ##APP Wide Error Handler
+  ##Error handlers
  
    @app.errorhandler(ValidationError)
    def validation_error(err):
@@ -40,12 +39,11 @@ def create_app():
        return {'error': f'The field {err} is required.'}, 400
       
    
-   ## Turns off alphabetical sorting
+   ##Config Section for app
    app.config ['JSON_SORT_KEYS'] = False
-
-   ## Sets our apps URI - to whats in our .env 
    app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
-
+   app.config['JWT_SECRET_KEY'] = os.environ.get('JWT_SECRET_KEY')
+    
    db.init_app(app)
    ma.init_app(app)
    bcrypt.init_app(app)

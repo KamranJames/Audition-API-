@@ -1,21 +1,20 @@
 from flask import Blueprint, request
-from flask_bcrypt import Bcrypt
-from init import db
+from init import db, bcrypt
 from models.user import User, UserSchema
 from sqlalchemy.exc import IntegrityError
+from controllers.auth_controller import authorize
+from flask_jwt_extended import jwt_required, get_jwt_identity
 
 ## USERS CONTROLLER
 
-bcrypt = Bcrypt()
 ## Parameters for our blueprint 
 users_bp = Blueprint('users', __name__, url_prefix='/users')
 
 #Get all users/requires authentication & authorization
 @users_bp.route('/')
-##@jwt_required()
 def get_all_users():
-    ##if not authorize():
-        ##return {'error': 'You must be an admin'}, 401 
+    if not authorize():
+        return {'error': 'You must be an admin'}, 401 
     
     stmt = db.select(User).order_by(User.desc(), User.title)
     users = db.session.scalars(stmt)
@@ -36,6 +35,7 @@ def get_one_user(id):
 
 ## Create a new user
 @users_bp.route('/', methods=['POST'])
+@jwt_required()
 def auth_register():
     try:
         # Create a new User model instance
@@ -54,11 +54,10 @@ def auth_register():
 
 #Delete a user from the db
 @users_bp.route('/<int:id>/', methods = ['DELETE'])
-##@jwt_required()
+@jwt_required()
 def delete_one_user(id):
-    ##authorize()
-    ##if not authorize():
-        ##return {'error': 'You must be an admin'}, 401 
+    if not authorize():
+        return {'error': 'You must be an admin'}, 401 
     
     stmt = db.select(User).filter_by(id=id)
     users = db.session.scalar(stmt)
