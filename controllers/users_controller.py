@@ -11,7 +11,7 @@ bcrypt = Bcrypt()
 users_bp = Blueprint('users', __name__, url_prefix='/users')
 
 #Get all users/requires authentication & authorization
-users_bp.route('/')
+@users_bp.route('/')
 ##@jwt_required()
 def all_users():
     ##if not authorize():
@@ -34,7 +34,7 @@ def one_user(id):
     else:
         return {'error': f'User not found with id {id}'}, 404
 
-## Post a new user
+## Create a new user
 @users_bp.route('/', methods=['POST'])
 def auth_register():
     try:
