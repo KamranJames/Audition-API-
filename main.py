@@ -7,7 +7,6 @@ from controllers.actors_controller import actors_bp
 from controllers.castings_controller import castings_bp
 from controllers.projects_controller import projects_bp
 from controllers.auth_controller import auth_bp
-
 import os
 
 ##from flask_bcrypt import Bcrypt
@@ -38,7 +37,7 @@ def create_app():
 
    @app.errorhandler(KeyError)
    def key_error(err):
-        return {'error': f'The field {err} is required.'}, 400
+       return {'error': f'The field {err} is required.'}, 400
       
    
    ## Turns off alphabetical sorting
