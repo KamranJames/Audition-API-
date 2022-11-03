@@ -1,6 +1,7 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from init import db, ma
+from controllers.cli_controller import db_commands
 from controllers.users_controller import users_bp
 from controllers.actors_controller import actors_bp
 from controllers.castings_controller import castings_bp
@@ -34,5 +35,8 @@ def create_app():
    app.register_blueprint(actors_bp)
    app.register_blueprint(projects_bp)
    app.register_blueprint(castings_bp)
+   app.register_blueprint(db_commands)
 
    return app 
+
+
