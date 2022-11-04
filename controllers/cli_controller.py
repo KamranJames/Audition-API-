@@ -1,5 +1,5 @@
 from flask import Blueprint
-from init import db ##,bcrypt
+from init import db ,bcrypt
 from models.user import User
 ##from models.comment import Comment
 
@@ -21,14 +21,14 @@ def drop_db():
 def seed_db():
     users = [
         User(
-            email='admin@spam.com',
-            password=bcrypt.generate_password_hash('eggs').decode('utf-8'),
+            email='johnwaters@gmail.com',
+            password=bcrypt.generate_password_hash('coder').decode('utf-8'),
             is_admin=True
         ),
         User(
-            name='John Cleese',
-            email='someone@spam.com',
-            password=bcrypt.generate_password_hash('12345').decode('utf-8')
+            name='Jack Reacher',
+            email='jack@reacher.com',
+            password=bcrypt.generate_password_hash('coder').decode('utf-8')
         )
     ]
 
