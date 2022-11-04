@@ -36,7 +36,6 @@ def get_one_user(id):
 
 ## Create a new user
 @users_bp.route('/', methods=['POST'])
-@jwt_required()
 def auth_register():
     try:
         # Create a new User model instance
@@ -69,3 +68,20 @@ def delete_one_user(id):
            return {'message': f"User '{User.title}' deleted successfully"}
     else:
         return {'error': f'User not found with id {id}'}, 404
+
+#Edit a one user in db
+@users_bp.route('/<int:id>/', methods = ['PUT, PATCH'])
+@jwt_required()
+def edit_user(id):
+    if not authorize():
+        return {'error': 'You must be an admin'}, 401 
+    
+    stmt = db.select(User).filter_by(id=id)
+    users = db.session.scalar(stmt)
+    if User: 
+        #Edit and commit changes to db
+           db.session.commit()
+           return {'message': f"User '{User.title}' changed successfully"}
+    else:
+        return {'error': f'User not found with id {id}'}, 404
+
