@@ -7,6 +7,7 @@ from controllers.actors_controller import actors_bp
 from controllers.castings_controller import castings_bp
 from controllers.projects_controller import projects_bp
 from controllers.auth_controller import auth_bp
+from controllers.role_controller import roles_bp
 import os
 
 
@@ -56,6 +57,7 @@ def create_app():
    app.register_blueprint(castings_bp)
    app.register_blueprint(db_commands)
    app.register_blueprint(auth_bp)
+   app.register_blueprint(roles_bp)
 
    return app 
 

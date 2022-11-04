@@ -1,6 +1,6 @@
 from init import db, ma
 
-## Model 
+## User Model 
 class User(db.Model):
     __tablename__ = 'users'
 
@@ -10,7 +10,7 @@ class User(db.Model):
     password = db.Column(db.String, nullable=False)
     is_admin = db.Column(db.Boolean, default=False)
 
-# Schema 
+# User Schema 
 class UserSchema(ma.Schema):
     class Meta:
         #model = User

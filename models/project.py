@@ -8,7 +8,7 @@ class Project(db.Model):
      name = db.Column(db.String, nullable=False)
      director = db.Column(db.String, nullable=False)
      year = db.Column(db.String, nullable=False)
-     ## Learn how to add FK here audition_id
+     
 
 ## Project Schema
 class ProjectSchema(ma.Schema):
