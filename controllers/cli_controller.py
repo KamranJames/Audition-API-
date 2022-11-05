@@ -62,15 +62,15 @@ def seed_db():
     roles = [
         Role(
             role = 'Zombie man',
-            project = projects[0]
+            ##project = projects[0]
         ),
         Role(
-            role = 'Sephiroth son',
-            project = projects[1]
+            role = 'Sephiroth/s son',
+            ##project = projects[1]
         )
     ]
 
-    db.session.add_all(projects)
+    db.session.add_all(roles)
     db.session.commit()
 
     print('Tables seeded')
@@ -80,14 +80,16 @@ def seed_db():
         Actor(
             f_name = 'Jerry',
             l_name = 'Arrow',
-            project = projects[0],
-            role = roles[0],
+            agency = 'NBD Agency'
+            ##project = projects[0],
+            ##role = roles[0],
         ),
         Actor(
             f_name = 'Jerry Arrow',
             l_name = 'Arrow',
-            project = projects[1],
-            role = roles[1],
+            agency = 'NBD Agency',
+            ##project = projects[1],
+            ##role = roles[1],
         )
     ]
 

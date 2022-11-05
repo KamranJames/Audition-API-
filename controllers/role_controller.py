@@ -8,7 +8,7 @@ from models.role import Role, RoleSchema
 ## Parameters for our blueprint 
 roles_bp = Blueprint('roles', __name__, url_prefix='/roles')
 
-roles_bp.route('/')
+@roles_bp.route('/')
 ##@jwt_required()
 def get_all_roles():
     ##if not authorize():

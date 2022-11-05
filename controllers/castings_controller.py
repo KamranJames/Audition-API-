@@ -8,7 +8,7 @@ from models.casting import Casting, CastingSchema
 ## Parameters for our blueprint 
 castings_bp = Blueprint('castings', __name__, url_prefix='/castings')
 
-castings_bp.route('/')
+@castings_bp.route('/')
 ##@jwt_required()
 def all_castings():
     ##if not authorize():

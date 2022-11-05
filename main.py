@@ -14,10 +14,8 @@ import os
 
 def create_app():
    app = Flask(__name__)
-  
-   
-  ##Error handlers
  
+ #Error Handlers
    @app.errorhandler(ValidationError)
    def validation_error(err):
         return {'error': err.messages}, 400

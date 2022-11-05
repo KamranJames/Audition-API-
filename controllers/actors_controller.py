@@ -8,7 +8,7 @@ from models.actor import Actor, ActorSchema
 ## Parameters for our blueprint 
 actors_bp = Blueprint('actors', __name__, url_prefix='/actors')
 
-actors_bp.route('/')
+@actors_bp.route('/')
 ##@jwt_required()
 def all_actors():
     ##if not authorize():
@@ -18,7 +18,6 @@ def all_actors():
     actors = db.session.scalars(stmt)
     return ActorSchema(many=True).dump(actors)
 
-## Will auto convert whatever request comes in as an int
 
 ## Allows us to select an actor by their id from db
 @actors_bp.route('/<int:id>/')

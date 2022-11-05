@@ -9,7 +9,8 @@ from flask_jwt_extended import jwt_required, get_jwt_identity
 ## Parameters for our blueprint 
 projects_bp = Blueprint('projects', __name__, url_prefix='/projects')
 
-projects_bp.route('/')
+
+@projects_bp.route('/')
 ##@jwt_required()
 def get_all_projects():
     ##if not authorize():
