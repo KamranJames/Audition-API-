@@ -13,9 +13,5 @@ class Project(db.Model):
 ## Project Schema
 class ProjectSchema(ma.Schema):
     class Meta:
-        model = Project
-
-    fields = ("name", "director", 'year') 
-
-Project_schema = ProjectSchema()
-Project_schema = ProjectSchema(many=True)
+        fields = ("name", "director", 'year')
+        ordered = True

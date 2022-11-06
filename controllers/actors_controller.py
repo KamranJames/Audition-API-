@@ -14,7 +14,7 @@ def all_actors():
     ##if not authorize():
         ##return {'error': 'You must be an admin'}, 401 
     
-    stmt = db.select(Actor).order_by(Actor.desc(), Actor.title)
+    stmt = db.select(Actor)
     actors = db.session.scalars(stmt)
     return ActorSchema(many=True).dump(actors)
 

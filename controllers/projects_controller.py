@@ -16,7 +16,7 @@ def get_all_projects():
     ##if not authorize():
         ##return {'error': 'You must be an admin'}, 401 
     
-    stmt = db.select(Project).order_by(Project.desc(), Project.title)
+    stmt = db.select(Project)
     projects = db.session.scalars(stmt)
     return ProjectSchema(many=True).dump(projects)
 
@@ -47,7 +47,7 @@ def update_one_project(id):
 
 #Create a single project
 @projects_bp.route('/', methods=['POST'])
-@jwt_required()
+##@jwt_required()
 def create_one_project():
     # Create a new project model instance
     data = ProjectSchema().load(request.json)
@@ -55,8 +55,8 @@ def create_one_project():
     project = Project(
         name = data['name'],
         director = data['director'],
-        year= data['year'], 
-        user_id = get_jwt_identity()
+        year = data['year'], 
+       ## user_id = get_jwt_identity()
     )
     # Add & commit project to Database
     db.session.add(project)

@@ -30,7 +30,7 @@ def seed_db():
         User(
             name='Jack Reacher',
             email='jack@reacher.com',
-            password=bcrypt.generate_password_hash('coder').decode('utf-8')
+            password=bcrypt.generate_password_hash('kitten').decode('utf-8')
         )
     ]
 
@@ -85,11 +85,18 @@ def seed_db():
             ##role = roles[0],
         ),
         Actor(
-            f_name = 'Jerry Arrow',
+            f_name = 'Jerry',
             l_name = 'Arrow',
             agency = 'NBD Agency',
             ##project = projects[1],
             ##role = roles[1],
+        ),
+        Actor(
+            f_name = 'Jon',
+            l_name = 'Loss',
+            agency = 'NBD Agency',
+            ##project = projects[1],
+            ##role = roles[1]
         )
     ]
 
@@ -97,3 +104,4 @@ def seed_db():
     db.session.commit()
 
     print('Tables seeded')
+

@@ -13,9 +13,7 @@ class Casting(db.Model):
 ## Casting Schema
 class CastingSchema(ma.Schema):
     class Meta:
-       model = Casting
+       ##model = Casting
        ##cd is short for casting director
-       fields = ("cd", "location",)    
-
-casting_schema = CastingSchema()
-casting_schema = CastingSchema(many=True)
+       fields = ("cd", "location",)
+       ordered = True

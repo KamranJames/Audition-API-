@@ -15,6 +15,4 @@ class RoleSchema(ma.Schema):
         model = Role
 
     fields = ("role") 
-
-Project_schema = RoleSchema()
-Project_schema = RoleSchema(many=True)
+    ordered = True

@@ -14,9 +14,5 @@ class Actor(db.Model):
 ## Actor Schema
 class ActorSchema(ma.Schema):
     class Meta:
-        model = Actor
-
-    fields = ("f_name", "l_name", 'agency')    
-
-audition_schema = ActorSchema()
-audition_schema = ActorSchema(many=True)
+        fields = ("f_name", "l_name", 'agency')
+        ordered = True

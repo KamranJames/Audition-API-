@@ -13,10 +13,7 @@ class User(db.Model):
 # User Schema 
 class UserSchema(ma.Schema):
     class Meta:
-        #model = User
         fields = ('id', 'name', 'email', 'password', 'is_admin')
-        #ordered = True
+        ordered = True
 
-#User_schema = UserSchema()
-#User_schema = UserSchema(many=True)
 
