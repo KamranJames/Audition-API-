@@ -61,7 +61,8 @@ def create_one_project():
     # Add & commit project to Database
     db.session.add(project)
     db.session.commit()
-
+    
+    return ProjectSchema().dump(project), 201
 
 
 
