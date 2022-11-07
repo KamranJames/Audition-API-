@@ -1,4 +1,5 @@
 from init import db, ma
+from marshmallow import fields
 
 #Project Model
 class Project(db.Model):
@@ -8,9 +9,10 @@ class Project(db.Model):
      name = db.Column(db.String, nullable=False)
      director = db.Column(db.String, nullable=False)
      year = db.Column(db.String, nullable=False)
-     ##Joining key to users table
+     ##FK
      user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
      user = db.relationship('User', back_populates ='projects')
+     roles = db.relationship('Role', back_populates ='projects')
 
 ## Project Schema
 class ProjectSchema(ma.Schema):

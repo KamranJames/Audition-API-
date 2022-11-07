@@ -23,6 +23,7 @@ def drop_db():
 def seed_db():
     users = [
         User(
+            name ='John Waters',
             email='johnwaters@gmail.com',
             password=bcrypt.generate_password_hash('coder').decode('utf-8'),
             is_admin=True,
@@ -51,7 +52,7 @@ def seed_db():
             name = 'Sephiroth Returns',
             director = 'Cal Kestis',
             year = '2023',
-            user = users[0]
+            user = users[1]
         )
     ]
 
@@ -64,11 +65,11 @@ def seed_db():
     roles = [
         Role(
             role = 'Zombie man',
-            ##project = projects[0]
+            projects = projects[0]
         ),
         Role(
-            role = 'Sephiroth/s son',
-            ##project = projects[1]
+            role = 'Sephiroths son',
+            projects = projects[1]
         )
     ]
 

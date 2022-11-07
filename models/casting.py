@@ -1,4 +1,5 @@
 from init import db, ma
+from marshmallow import fields
 
 
 ## Casting Model
@@ -13,7 +14,6 @@ class Casting(db.Model):
 ## Casting Schema
 class CastingSchema(ma.Schema):
     class Meta:
-       ##model = Casting
        ##cd is short for casting director
-       fields = ("cd", "location",)
+       fields = ('cd', 'location')
        ordered = True

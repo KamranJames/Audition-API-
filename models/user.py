@@ -1,4 +1,5 @@
 from init import db, ma
+from marshmallow import fields
 
 ## User Model 
 class User(db.Model):

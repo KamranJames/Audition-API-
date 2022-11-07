@@ -1,4 +1,5 @@
 from init import db, ma
+from marshmallow import fields
 
 ## Model 
 #Actor Model
@@ -14,5 +15,5 @@ class Actor(db.Model):
 ## Actor Schema
 class ActorSchema(ma.Schema):
     class Meta:
-        fields = ("f_name", "l_name", 'agency')
+        fields = ('f_name', 'l_name', 'agency')
         ordered = True
