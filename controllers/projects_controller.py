@@ -31,14 +31,14 @@ def get_one_project(id):
 
 #Edit a single project
 @projects_bp.route('/<int:id>/', methods = ['PUT', 'PATCH'])
-@jwt_required()
+#@jwt_required()
 def update_one_project(id):
     stmt = db.select(Project).filter_by(id=id)
     project = db.session.scalar(stmt)
     if project:
-       project.name = request.json.get['name'] or project.name
-       project.director = request.json.get['director'] or project.director
-       project.year = request.json.get['year'] or project.year
+       project.name = request.json.get('name') or project.name
+       project.director = request.json.get('director') or project.director
+       project.year = request.json.get('year') or project.year
        db.session.commit()
        return ProjectSchema().dump(project)
     else: 
@@ -63,6 +63,23 @@ def create_one_project():
     db.session.commit()
     
     return ProjectSchema().dump(project), 201
+
+
+
+## Delete a project from db
+@projects_bp.route('/<int:id>/', methods=['DELETE'])
+##@jwt_required()
+def delete_one_project(id):
+    ##authorize()
+
+    stmt = db.select(Project).filter_by(id=id)
+    project = db.session.scalar(stmt)
+    if project:
+        db.session.delete(project)
+        db.session.commit()
+        return {'message': f"Project {project.name} deleted successfully"}
+    else:
+        return {'error': f'Project not found with id {id}'}, 404
 
 
 

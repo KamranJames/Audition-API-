@@ -75,6 +75,6 @@ def delete_one_actor(id):
     if actor:
         db.session.delete(actor)
         db.session.commit()
-        return {'message': f"Actor f'{actor} 'deleted successfully"}
+        return {'message': f"Actor '{actor.f_name, actor.l_name} 'deleted successfully"}
     else:
         return {'error': f'Actor not found with id {id}'}, 404
