@@ -9,7 +9,8 @@ class Project(db.Model):
      name = db.Column(db.String, nullable=False)
      director = db.Column(db.String, nullable=False)
      year = db.Column(db.String, nullable=False)
-     ##FK
+     
+     ##ForeignKeys
      user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
      casting_id = db.Column(db.Integer, db.ForeignKey('castings.id'), nullable=False)
      actor_id = db.Column(db.Integer, db.ForeignKey('actors.id'), nullable=False)
