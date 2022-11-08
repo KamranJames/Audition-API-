@@ -68,15 +68,15 @@ def create_one_project():
 
 
 @projects_bp.route('/<int:card_id>/comments', methods=['POST'])
-@jwt_required()
+##@jwt_required()
 def create_comment(project_id):
     stmt = db.select(Project).filter_by(id=project_id)
-    card = db.session.scalar(stmt)
+    project = db.session.scalar(stmt)
     if project:
         comment = Comment(
             message = request.json['message'],
             ##user_id = get_jwt_identity(),
-            comment = comment,
+            project = project,
             date = date.today()
         )
         db.session.add(comment)
