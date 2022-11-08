@@ -11,7 +11,14 @@ class Project(db.Model):
      year = db.Column(db.String, nullable=False)
      ##FK
      user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+     casting_id = db.Column(db.Integer, db.ForeignKey('castings.id'), nullable=False)
+     actor_id = db.Column(db.Integer, db.ForeignKey('actors.id'), nullable=False)
+
+     
      user = db.relationship('User', back_populates ='projects')
+     casting = db.relationship('Castings', back_populates ='projects')
+     actor = db.relationship('Actor', back_populates ='projects')
+     comment = db.relationship('Comment', back_populates ='projects')
      roles = db.relationship('Role', back_populates ='projects')
 
 ## Project Schema

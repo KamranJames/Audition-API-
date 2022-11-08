@@ -10,7 +10,11 @@ class Actor(db.Model):
      f_name = db.Column(db.String, nullable=False)
      l_name = db.Column(db.String, nullable=False)
      agency = db.Column(db.String, nullable=False)
-     ## Learn how to add FK here audition_id
+
+     role_id = db.Column(db.Integer, db.ForeignKey('roles.id'), nullable=False)
+     project_id = db.Column(db.Integer, db.ForeignKey('projects.id'), nullable=False)
+     
+     project = db.relationship("Project", back_populates="actors", cascade='all, delete')
 
 ## Actor Schema
 class ActorSchema(ma.Schema):

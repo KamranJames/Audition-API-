@@ -10,6 +10,9 @@ class Casting(db.Model):
      ## cd is short for casting director
      cd = db.Column(db.String, nullable=False)
      location = db.Column(db.String, nullable=False)
+     
+     project_id = db.Column(db.Integer, db.ForeignKey('projects.id'), nullable=False)
+     project = db.relationship("Project", back_populates="castings", cascade='all, delete')
 
 ## Casting Schema
 class CastingSchema(ma.Schema):

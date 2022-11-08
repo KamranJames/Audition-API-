@@ -11,8 +11,8 @@ class Comment(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     project_id = db.Column(db.Integer, db.ForeignKey('projects.id'), nullable=False)
 
-    user = db.relationship("User", back_populates="comments")
-    project = db.relationship("Project", back_populates="comments")
+    user = db.relationship("User", back_populates="comments", cascade='all, delete')
+    project = db.relationship("Project", back_populates="comments",cascade='all, delete')
 
 
 class CommentSchema(ma.Schema):
