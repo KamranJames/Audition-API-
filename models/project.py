@@ -23,6 +23,8 @@ class Project(db.Model):
 
 ## Project Schema
 class ProjectSchema(ma.Schema):
+    user = fields.Nested('UserSchema', only=['name', 'email'])
+    comments = fields.List(fields.Nested('CommentSchema', exclude=['project']))
     class Meta:
         fields = ('name', 'director', 'year')
         ordered = True

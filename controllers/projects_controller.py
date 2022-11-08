@@ -103,7 +103,23 @@ def delete_one_project(id):
         return {'error': f'Project not found with id {id}'}, 404
 
 
-
-
+## Add comments to a project
+@projects_bp.route('/<int:card_id>/comments', methods=['POST'])
+##@jwt_required()
+def create_comment(project_id):
+    stmt = db.select(Project).filter_by(id=project_id)
+    project = db.session.scalar(stmt)
+    if project:
+        comment = Comment(
+            message = request.json['message'],
+            ##user_id = get_jwt_identity(),
+            project = project,
+            date = date.today()
+        )
+        db.session.add(comment)
+        db.session.commit()
+        return CommentSchema().dump(comment), 201
+    else:
+        return {'error': f'Project not found with id {id}'}, 404
 
     
