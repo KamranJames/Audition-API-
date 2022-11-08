@@ -4,7 +4,7 @@ from marshmallow import fields
 ## Model 
 #Actor Model
 class Actor(db.Model):
-     __tablename__ = "actors"
+     __tablename__ = 'actors'
 
      id = db.Column(db.Integer, primary_key=True)
      f_name = db.Column(db.String, nullable=False)

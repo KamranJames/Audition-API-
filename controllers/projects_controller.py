@@ -2,6 +2,9 @@ from flask import Blueprint, request
 from init import db
 from models.project import Project, ProjectSchema
 from flask_jwt_extended import jwt_required, get_jwt_identity
+from models.comment import Comment, CommentSchema
+from datetime import date
+
 
 ## Project CONTROLLER
 
@@ -49,7 +52,6 @@ def update_one_project(id):
 @projects_bp.route('/', methods=['POST'])
 ##@jwt_required()
 def create_one_project():
-    # Create a new project model instance
     data = ProjectSchema().load(request.json)
         
     project = Project(
@@ -63,6 +65,25 @@ def create_one_project():
     db.session.commit()
     
     return ProjectSchema().dump(project), 201
+
+
+@projects_bp.route('/<int:card_id>/comments', methods=['POST'])
+@jwt_required()
+def create_comment(project_id):
+    stmt = db.select(Project).filter_by(id=project_id)
+    card = db.session.scalar(stmt)
+    if project:
+        comment = Comment(
+            message = request.json['message'],
+            ##user_id = get_jwt_identity(),
+            comment = comment,
+            date = date.today()
+        )
+        db.session.add(comment)
+        db.session.commit()
+        return CommentSchema().dump(comment), 201
+    else:
+        return {'error': f'Project not found with id {id}'}, 404
 
 
 

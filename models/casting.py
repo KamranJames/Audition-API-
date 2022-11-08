@@ -4,7 +4,7 @@ from marshmallow import fields
 
 ## Casting Model
 class Casting(db.Model):
-     __tablename__ = "castings"
+     __tablename__ = 'castings'
 
      id = db.Column(db.Integer, primary_key=True)
      ## cd is short for casting director

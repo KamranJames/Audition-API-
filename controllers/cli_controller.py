@@ -64,12 +64,10 @@ def seed_db():
 ## Create example roles
     roles = [
         Role(
-            role = 'Zombie man',
-            projects = projects[0]
+            name = 'Zombie man'
         ),
         Role(
-            role = 'Sephiroths son',
-            projects = projects[1]
+            name = 'Sephiroths son'
         )
     ]
 

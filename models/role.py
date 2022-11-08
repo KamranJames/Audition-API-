@@ -6,7 +6,7 @@ class Role(db.Model):
      __tablename__ = 'roles'
 
      id = db.Column(db.Integer, primary_key=True)
-     role = db.Column(db.String, nullable=False)
+     name = db.Column(db.String, nullable=False)
      project_id = db.Column(db.Integer, db.ForeignKey('projects.id'), nullable=False)
      projects = db.relationship('Project', back_populates='roles', cascade='all, delete')
      
@@ -15,6 +15,7 @@ class Role(db.Model):
 ## Role Schema
 class RoleSchema(ma.Schema):
     class Meta:
-        fields = ('role', 'project') ##'actor'
+        ## NOTE This was originally in tuple ('name')if anything broke check back here.
+        fields = ['name']
         ordered = True
 

@@ -69,7 +69,7 @@ def delete_one_user(id):
     else:
         return {'error': f'User not found with id {id}'}, 404
 
-#Edit a one user in db
+#Edit one user in db
 @users_bp.route('/<int:id>/', methods = ['PUT, PATCH'])
 @jwt_required()
 def edit_user(id):
