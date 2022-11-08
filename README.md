@@ -26,3 +26,4 @@ My goal is to implement these features, but depending on how successful I am wit
 - Photo upload ability (Can take a photo of the outfit you wore on the day and upload it to a 3rd party website.
 
 This could not only be useful for actors but casting directors to also utilise.
+
