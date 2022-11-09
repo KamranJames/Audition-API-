@@ -18,9 +18,9 @@ def all_castings():
     castings = db.session.scalars(stmt)
     return CastingSchema(many=True).dump(castings)
 
-## Will auto convert whatever request comes in as an int
 
-## Allows us to select a casting by the id from db
+
+##Get a single casting
 @castings_bp.route('/<int:id>/')
 def one_casting(id):
     stmt = db.select(Casting).filter_by(id=id)
@@ -28,7 +28,7 @@ def one_casting(id):
     return CastingSchema().dump(casting)
 
 
-##Create a single actor
+##Create a single casting
 @castings_bp.route('/', methods=['POST'])
 ##@jwt_required()
 def create_one_casting():
