@@ -13,8 +13,7 @@ class Project(db.Model):
      
      ##ForeignKeys
      user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
-     ##casting_id = db.Column(db.Integer, db.ForeignKey('castings.id'), nullable=False)
-     ##actor_id = db.Column(db.Integer, db.ForeignKey('actors.id'), nullable=False)
+   
 
      
      user = db.relationship('User', back_populates ='projects')
