@@ -9,18 +9,22 @@ class Project(db.Model):
      name = db.Column(db.String, nullable=False)
      director = db.Column(db.String, nullable=False)
      year = db.Column(db.String, nullable=False)
+    
+     
      
      
      ##ForeignKeys
-     ##user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+     ##role_id = db.Column(db.Integer, db.ForeignKey('roles.id'), nullable=False)
+     ##project_id = db.Column(db.Integer, db.ForeignKey('projects.id'), nullable=False)
    
 
      
-     user = db.relationship('User', back_populates ='projects')
-     castings = db.relationship('Casting', back_populates ='projects')
-     actors = db.relationship('Actor', back_populates ='projects')
-     comments = db.relationship('Comment', back_populates ='projects')
-     roles = db.relationship('Role', back_populates ='projects')
+     user = db.relationship('User', back_populates ='projects', cascade='all, delete')
+     castings = db.relationship('Casting', back_populates ='projects', cascade='all, delete')
+     actors = db.relationship('Actor', back_populates ='projects', cascade='all, delete')
+     comments = db.relationship('Comment', back_populates ='projects', cascade='all, delete')
+     roles = db.relationship('Role', back_populates ='projects', cascade='all, delete')
 
 ## Project Schema
 class ProjectSchema(ma.Schema):
@@ -28,7 +32,7 @@ class ProjectSchema(ma.Schema):
     comments = fields.List(fields.Nested('CommentSchema', exclude=['project']))
 
     class Meta:
-        fields = ('id','name', 'director', 'year', 'comments')
+        fields = ('id','name', 'director', 'year', 'comments', 'user')
         ordered = True
 
 

@@ -27,11 +27,12 @@ def seed_db():
             email='johnwaters@gmail.com',
             ##project = projects[0],
             password=bcrypt.generate_password_hash('coder').decode('utf-8'),
-            is_admin=True,
+            is_admin=True
         ),
+
         User(
-            name='Jack Reacher',
-            email='jack@reacher.com',
+            name=['Jack Reacher'],
+            email=['jack@reacher.com'],
             ##project = projects[1],
             password=bcrypt.generate_password_hash('kitten').decode('utf-8')
         )
@@ -48,14 +49,14 @@ def seed_db():
             name = 'The last days',
             director = 'John Mckin',
             year = '2022',
-            user = users[0],
+            user = users[0]
         
         ),
         Project(
             name = 'Sephiroth Returns',
             director = 'Cal Kestis',
             year = '2023',
-            user = users[1],
+            user = users[1]
         
         )
     ]

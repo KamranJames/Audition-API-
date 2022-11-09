@@ -12,7 +12,8 @@ class User(db.Model):
     is_admin = db.Column(db.Boolean, default=False)
     
     ##ForeignKeys
-    ##project_id = db.Column(db.Integer, db.ForeignKey('projects.id'), nullable=False)
+    ##project_id = db.Column(db.Integer, db.ForeignKey('projects.id'))
+    ## removed nullable = false constraint.
 
     projects = db.relationship('Project', back_populates='user', cascade='all, delete')
     comments = db.relationship('Comment', back_populates='user', cascade='all, delete')

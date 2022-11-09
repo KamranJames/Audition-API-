@@ -19,7 +19,7 @@ class Role(db.Model):
 ## Role Schema
 class RoleSchema(ma.Schema):
     class Meta:
-        projects = fields.Nested('ProjectSchema', only=['name'])
+        ##projects = fields.Nested('ProjectSchema', only=['name'])
         fields = ('id', 'name', 'project')
         ordered = True
 
