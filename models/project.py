@@ -31,7 +31,7 @@ class ProjectSchema(ma.Schema):
     comments = fields.List(fields.Nested('CommentSchema', exclude=['project']))
 
     class Meta:
-        fields = ('id','name', 'director', 'year', 'comments', 'user', 'castings', 'actors', 'roles')
+        fields = ('id','name', 'director', 'year', 'comments', 'user_id', 'casting_id', 'actor_id', 'role_id')
         ordered = True
 
 
