@@ -5,7 +5,7 @@ from models.actor import Actor, ActorSchema
 ## ACTORS CONTROLLER
 
 
-## Parameters for our blueprint 
+## Parameters for blueprint 
 actors_bp = Blueprint('actors', __name__, url_prefix='/actors')
 
 @actors_bp.route('/')

@@ -2,7 +2,7 @@ from flask import Blueprint, request
 from init import db
 from models.casting import Casting, CastingSchema
 
-## Project CONTROLLER
+## Casting Controller
 
 
 ## Parameters for our blueprint 
@@ -36,7 +36,6 @@ def create_one_casting():
     data = CastingSchema().load(request.json)
         
     casting = Casting(
-        # Id
         ##authorize()
         cd = data['cd'],
         location = data['location'],

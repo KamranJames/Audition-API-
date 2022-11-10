@@ -14,8 +14,8 @@ class Actor(db.Model):
      ##role_id = db.Column(db.Integer, db.ForeignKey('roles.id'), nullable=False)
      project_id = db.Column(db.Integer, db.ForeignKey('projects.id'), nullable=False)
      
-     roles = db.relationship("Role", back_populates="actors", cascade='all, delete')
-     projects = db.relationship("Project", back_populates="actors", cascade='all, delete')
+     ##role = db.relationship("Role", back_populates="actors")
+     projects = db.relationship("Project", back_populates="actors")
      
 ## Actor Schema
 class ActorSchema(ma.Schema):

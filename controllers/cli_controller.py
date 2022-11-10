@@ -49,37 +49,19 @@ def seed_db():
             name = 'The last days',
             director = 'John Mckin',
             year = '2022',
-            user = users[0].id
+            user_id = users[0].id
         
         ),
         Project(
             name = 'Sephiroth Returns',
             director = 'Cal Kestis',
             year = '2023',
-            user = users[1].id
+            user_id = users[1].id
         
         )
     ]
 
     db.session.add_all(projects)
-    db.session.commit()
-
-    print('Tables seeded')
-
-
-## Create example roles
-    roles = [
-        Role(
-            name = 'Zombie man',
-            project = projects[0].id
-        ),
-        Role(
-            name = 'Sephiroths son',
-            project = projects[1].id
-        )
-    ]
-
-    db.session.add_all(roles)
     db.session.commit()
 
     print('Tables seeded')
@@ -90,27 +72,48 @@ def seed_db():
             f_name = 'Jerry',
             l_name = 'Arrow',
             agency = 'NBD Agency',
-            project = projects[0].id,
-            role = roles[0].id,
+            project_id = projects[0].id,
+            ##role = roles[0].id,
         ),
         Actor(
             f_name = 'Jerry',
             l_name = 'Arrow',
             agency = 'NBD Agency',
-            project = projects[1].id,
-            role = roles[1].id,
+            project_id = projects[1].id,
+            ##role = roles[1].id,
         ),
         Actor(
             f_name = 'Jon',
             l_name = 'Loss',
             agency = 'NBD Agency',
-            project = projects[1].id,
-            role = roles[1].id
+            project_id = projects[1].id,
+            ##role = roles[1].id
         )
     ]
 
     db.session.add_all(actors)
     db.session.commit()
+
+
+## Create example roles
+    roles = [
+        Role(
+            name = 'Zombie man',
+            project_id = projects[0].id,
+            actor_id = actors[0].id
+        ),
+        Role(
+            name = 'Sephiroths son',
+            project_id = projects[1].id,
+            actor_id = actors[1].id
+        )
+    ]
+
+    db.session.add_all(roles)
+    db.session.commit()
+
+    print('Tables seeded')
+
 
 
 
