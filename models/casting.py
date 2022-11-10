@@ -21,6 +21,5 @@ class CastingSchema(ma.Schema):
     projects = fields.Nested('ProjectSchema')
     
     class Meta:
-       ##cd is short for casting director
-       fields = ('id','casting_assosciate', 'agency', 'location', 'projects')
+       fields = ('id','casting_assosciate', 'agency', 'location', 'project_id')
        ordered = True
