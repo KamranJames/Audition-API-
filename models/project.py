@@ -15,8 +15,7 @@ class Project(db.Model):
      
      ##ForeignKeys
      user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
-     ##role_id = db.Column(db.Integer, db.ForeignKey('roles.id'), nullable=False)
-     ##project_id = db.Column(db.Integer, db.ForeignKey('projects.id'), nullable=False)
+ 
    
 
      

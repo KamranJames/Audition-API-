@@ -25,7 +25,6 @@ def seed_db():
         User(
             name ='John Waters',
             email='johnwaters@gmail.com',
-            ##project = projects[0],
             password=bcrypt.generate_password_hash('coder').decode('utf-8'),
             is_admin=True
         ),
@@ -33,7 +32,6 @@ def seed_db():
         User(
             name=['Jack Reacher'],
             email=['jack@reacher.com'],
-            ##project = projects[1],
             password=bcrypt.generate_password_hash('kitten').decode('utf-8')
         )
     ]
@@ -73,21 +71,21 @@ def seed_db():
             l_name = 'Arrow',
             agency = 'NBD Agency',
             project_id = projects[0].id,
-            ##role = roles[0].id,
+         
         ),
         Actor(
             f_name = 'Jerry',
             l_name = 'Arrow',
             agency = 'NBD Agency',
             project_id = projects[1].id,
-            ##role = roles[1].id,
+          
         ),
         Actor(
             f_name = 'Jon',
             l_name = 'Loss',
             agency = 'NBD Agency',
             project_id = projects[1].id,
-            ##role = roles[1].id
+           
         )
     ]
 
