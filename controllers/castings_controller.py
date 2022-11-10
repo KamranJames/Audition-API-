@@ -20,7 +20,7 @@ def all_castings():
 
 
 
-##Get a single casting
+##Select One casting
 @castings_bp.route('/<int:id>/')
 def one_casting(id):
     stmt = db.select(Casting).filter_by(id=id)
@@ -78,6 +78,6 @@ def delete_one_casting(id):
     if casting:
         db.session.delete(casting)
         db.session.commit()
-        return {'message': f"Casting '{casting.cd, casting.location, casting.agency} 'deleted successfully"}
+        return {'message': f"Casting '{casting.casting_assosciate} 'deleted successfully"}
     else:
         return {'error': f'Casting not found with id {id}'}, 404

@@ -56,7 +56,7 @@ def create_one_role():
         
     role = Role(
         name = data['name'],
-        notes = data['notes'],
+        notes = data['notes']
         ## user_id = get_jwt_identity()
     )
     # Add & commit project to Database
