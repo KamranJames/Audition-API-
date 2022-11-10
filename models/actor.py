@@ -11,10 +11,9 @@ class Actor(db.Model):
      l_name = db.Column(db.String, nullable=False)
      agency = db.Column(db.String, nullable=False)
 
-     ##role_id = db.Column(db.Integer, db.ForeignKey('roles.id'), nullable=False)
+## Foreign Key
      project_id = db.Column(db.Integer, db.ForeignKey('projects.id'), nullable=False)
      
-     ##role = db.relationship("Role", back_populates="actors")
      projects = db.relationship("Project", back_populates="actors")
      
 ## Actor Schema

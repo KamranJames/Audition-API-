@@ -36,7 +36,7 @@ def seed_db():
         User(
             name=['Jack Reacher'],
             email=['jack@reacher.com'],
-            password=bcrypt.generate_password_hash('kitten').decode('utf-8')
+            password=bcrypt.generate_password_hash('kitten').decode('utf-8'),
         )
     ]
 
@@ -78,9 +78,9 @@ def seed_db():
          
         ),
         Actor(
-            f_name = 'Jerry',
-            l_name = 'Arrow',
-            agency = 'NBD Agency',
+            f_name = 'Jonah',
+            l_name = 'Loanal',
+            agency = 'Sigma Agency',
             project_id = projects[1].id,
           
         ),
