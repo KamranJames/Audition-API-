@@ -4,6 +4,10 @@ from models.user import User
 from models.actor import Actor
 from models.project import Project
 from models.role import Role
+from models.casting import Casting
+from models.comment import Comment
+from datetime import date, datetime
+
 
 
 db_commands = Blueprint('db', __name__)
@@ -97,11 +101,13 @@ def seed_db():
     roles = [
         Role(
             name = 'Zombie man',
+            notes = 'Searching for any gender, any ages, dance ability is a plus.',
             project_id = projects[0].id,
             actor_id = actors[0].id
         ),
         Role(
             name = 'Sephiroths son',
+            notes = 'Searching for a male, ages 25 to 30, martial arts experience required.',
             project_id = projects[1].id,
             actor_id = actors[1].id
         )
@@ -112,6 +118,43 @@ def seed_db():
 
     print('Tables seeded')
 
+   ## Create example Castings
+    castings = [
+        Casting(
+            casting_assosciate= 'Victory Casting',
+            location = 'Vancouver, Canada',
+            agency = 'NBD Agency',
+            project_id = projects[1].id,
+        ),
+        Casting(
+            casting_assosciate= 'Mallory White',
+            location = 'Los Angeles, America',
+            agency = 'CPJ Agency',
+            project_id = projects[0].id
+        )
+    ]
+
+    db.session.add_all(castings)
+    db.session.commit()
+
+    ## Create example Comment
+    comments = [
+        Comment(
+           message = 'This project has a budget of 100 million and is shooting in Los Angeles in December.',
+           date = datetime.today(),
+           project_id = projects[0].id,
+           user_id = users[0].id
+        ),
+        Comment(
+            message = 'This project is a low budget independent feature. It will be shot and around Vancouver, Canada in order to get tax breaks.',
+            date = datetime.today(),
+            project_id = projects[1].id,
+            user_id = users[1].id
+        )
+    ]
+
+    db.session.add_all(comments)
+    db.session.commit()
 
 
 

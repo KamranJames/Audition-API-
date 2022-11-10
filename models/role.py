@@ -7,6 +7,7 @@ class Role(db.Model):
 
      id = db.Column(db.Integer, primary_key=True)
      name = db.Column(db.String, nullable=False)
+     notes = db.Column(db.String, nullable=False)
      ##project = db.Column(db.String, nullable=False)
 
      project_id = db.Column(db.Integer, db.ForeignKey('projects.id'), nullable=False)
@@ -22,6 +23,6 @@ class RoleSchema(ma.Schema):
     ##actor = fields.Nested('ActorSchema')
     
     class Meta:
-        fields = ('id', 'name', 'project', 'actor')
+        fields = ('id', 'name', 'project','notes', 'actor')
         ordered = True
 
