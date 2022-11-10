@@ -14,11 +14,13 @@ class Casting(db.Model):
      #Foreign Keys
      project_id = db.Column(db.Integer, db.ForeignKey('projects.id'), nullable=False)
      
-     projects = db.relationship("Project", back_populates="castings", cascade='all, delete')
+     projects = db.relationship("Project", back_populates="castings")
 
 ## Casting Schema
 class CastingSchema(ma.Schema):
+    projects = fields.Nested('ProjectSchema')
+    
     class Meta:
        ##cd is short for casting director
-       fields = ('id','cd', 'location')
+       fields = ('id','cd', 'location', 'projects')
        ordered = True

@@ -49,14 +49,14 @@ def seed_db():
             name = 'The last days',
             director = 'John Mckin',
             year = '2022',
-            user = users[0]
+            user = users[0].id
         
         ),
         Project(
             name = 'Sephiroth Returns',
             director = 'Cal Kestis',
             year = '2023',
-            user = users[1]
+            user = users[1].id
         
         )
     ]
@@ -71,11 +71,11 @@ def seed_db():
     roles = [
         Role(
             name = 'Zombie man',
-            project = projects[0]
+            project = projects[0].id
         ),
         Role(
             name = 'Sephiroths son',
-            project = projects[1]
+            project = projects[1].id
         )
     ]
 
@@ -90,22 +90,22 @@ def seed_db():
             f_name = 'Jerry',
             l_name = 'Arrow',
             agency = 'NBD Agency',
-            project = projects[0],
-            role = roles[0],
+            project = projects[0].id,
+            role = roles[0].id,
         ),
         Actor(
             f_name = 'Jerry',
             l_name = 'Arrow',
             agency = 'NBD Agency',
-            project = projects[1],
-            role = roles[1],
+            project = projects[1].id,
+            role = roles[1].id,
         ),
         Actor(
             f_name = 'Jon',
             l_name = 'Loss',
             agency = 'NBD Agency',
-            project = projects[1],
-            role = roles[1]
+            project = projects[1].id,
+            role = roles[1].id
         )
     ]
 

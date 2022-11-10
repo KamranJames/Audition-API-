@@ -20,7 +20,7 @@ class Project(db.Model):
    
 
      
-     user = db.relationship('User', back_populates ='projects', cascade='all, delete')
+     user = db.relationship('User', back_populates ='projects')
      castings = db.relationship('Casting', back_populates ='projects', cascade='all, delete')
      actors = db.relationship('Actor', back_populates ='projects', cascade='all, delete')
      comments = db.relationship('Comment', back_populates ='projects', cascade='all, delete')
@@ -32,7 +32,7 @@ class ProjectSchema(ma.Schema):
     comments = fields.List(fields.Nested('CommentSchema', exclude=['project']))
 
     class Meta:
-        fields = ('id','name', 'director', 'year', 'comments', 'user')
+        fields = ('id','name', 'director', 'year', 'comments', 'user', 'castings', 'actors', 'roles')
         ordered = True
 
 

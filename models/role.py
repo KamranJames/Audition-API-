@@ -9,17 +9,18 @@ class Role(db.Model):
      name = db.Column(db.String, nullable=False)
      ##project = db.Column(db.String, nullable=False)
 
-     ##project_id = db.Column(db.Integer, db.ForeignKey('projects.id'), nullable=False)
+     project_id = db.Column(db.Integer, db.ForeignKey('projects.id'), nullable=False)
     
 
-     projects = db.relationship('Project', back_populates='roles', cascade='all, delete')
-     actors = db.relationship('Actor', back_populates='roles', cascade='all, delete')
+     ##projects = db.relationship('Project', back_populates='roles')
+     actors = db.relationship('Actor', back_populates='roles')
      
 
 ## Role Schema
 class RoleSchema(ma.Schema):
+    actors = fields.Nested('ActorSchema')
+    
     class Meta:
-        ##projects = fields.Nested('ProjectSchema', only=['name'])
-        fields = ('id', 'name', 'project')
+        fields = ('id', 'name', 'project', 'actors')
         ordered = True
 

@@ -11,7 +11,7 @@ class Actor(db.Model):
      l_name = db.Column(db.String, nullable=False)
      agency = db.Column(db.String, nullable=False)
 
-     role_id = db.Column(db.Integer, db.ForeignKey('roles.id'), nullable=False)
+     ##role_id = db.Column(db.Integer, db.ForeignKey('roles.id'), nullable=False)
      project_id = db.Column(db.Integer, db.ForeignKey('projects.id'), nullable=False)
      
      roles = db.relationship("Role", back_populates="actors", cascade='all, delete')
@@ -23,6 +23,6 @@ class ActorSchema(ma.Schema):
     project = fields.Nested('ProjectSchema')
 
     class Meta:
-        fields = ('id','f_name', 'l_name', 'agency')
+        fields = ('id','f_name', 'l_name', 'agency', 'project_id', 'roles')
         ordered = True
 

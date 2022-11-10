@@ -23,6 +23,7 @@ class User(db.Model):
 class UserSchema(ma.Schema):
     projects = fields.List(fields.Nested('ProjectSchema', exclude=['user']))
     comments = fields.List(fields.Nested('CommentSchema', exclude=['user']))
+    
     class Meta:
         fields = ('id', 'name', 'email', 'password', 'is_admin', 'projects', 'comments')
         ordered = True
