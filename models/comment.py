@@ -1,5 +1,6 @@
 from init import db, ma
 from marshmallow import fields
+from marshmallow.validate import Length
 
 class Comment(db.Model):
     __tablename__ = 'comments'
@@ -18,6 +19,7 @@ class Comment(db.Model):
 class CommentSchema(ma.Schema):
     user = fields.Nested('UserSchema', only=['name', 'email'])
     card = fields.Nested('ProjectSchema')
+    message = fields.String(required=True, validate=Length(min=1, max=50, error='message must be at least 1 character min and 50 characters max'))
 
     class Meta:
         fields = ('id', 'message', 'date', 'project', 'user')

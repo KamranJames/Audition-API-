@@ -51,6 +51,7 @@ def seed_db():
             name = 'The last days',
             director = 'John Mckin',
             year = '2022',
+            status = 'Filming',
             user_id = users[0].id
         
         ),
@@ -58,6 +59,7 @@ def seed_db():
             name = 'Sephiroth Returns',
             director = 'Cal Kestis',
             year = '2023',
+            status = 'Pre-production',
             user_id = users[1].id
         
         )

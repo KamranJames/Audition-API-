@@ -8,7 +8,6 @@ from datetime import date
 
 ## Project CONTROLLER
 
-
 ## Parameters for our blueprint 
 projects_bp = Blueprint('projects', __name__, url_prefix='/projects')
 
@@ -29,7 +28,11 @@ def get_all_projects():
 def get_one_project(id):
     stmt = db.select(Project).filter_by(id=id)
     project = db.session.scalar(stmt)
-    return ProjectSchema().dump(project)
+    if project:
+        return ProjectSchema().dump(project)
+    else:
+        return {'error': f'Project not found with id {id}'}, 404
+ 
 
 
 #Edit a single project
@@ -42,6 +45,7 @@ def update_one_project(id):
        project.name = request.json.get('name') or project.name
        project.director = request.json.get('director') or project.director
        project.year = request.json.get('year') or project.year
+       project.status = request.json.get('status') or project.status
        db.session.commit()
        return ProjectSchema().dump(project)
     else: 
@@ -58,6 +62,7 @@ def create_one_project():
         name = data['name'],
         director = data['director'],
         year = data['year'], 
+        status = data['status']
        ## user_id = get_jwt_identity()
     )
     # Add & commit project to Database
