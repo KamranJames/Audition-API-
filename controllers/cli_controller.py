@@ -6,7 +6,7 @@ from models.project import Project
 from models.role import Role
 from models.casting import Casting
 from models.comment import Comment
-from datetime import date, datetime
+from datetime import datetime
 
 
 

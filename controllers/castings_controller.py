@@ -39,6 +39,7 @@ def create_one_casting():
         ##authorize()
         cd = data['cd'],
         location = data['location'],
+        agency = data['agency']
        ## user_id = get_jwt_identity()
     )
     # Add & commit casting to Database
@@ -57,6 +58,7 @@ def update_one_casting(id):
     if casting:
         casting.cd = request.json.get('cd') or casting.cd
         casting.location = request.json.get('location') or casting.location
+        casting.agency = request.json.get('agency') or casting.agency
         db.session.commit()      
         return CastingSchema().dump(casting)
     else:
@@ -76,6 +78,6 @@ def delete_one_casting(id):
     if casting:
         db.session.delete(casting)
         db.session.commit()
-        return {'message': f"Casting '{casting.cd, casting.location} 'deleted successfully"}
+        return {'message': f"Casting '{casting.cd, casting.location, casting.agency} 'deleted successfully"}
     else:
         return {'error': f'Casting not found with id {id}'}, 404

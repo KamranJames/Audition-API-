@@ -15,7 +15,7 @@ def get_all_roles():
     ##if not authorize():
         ##return {'error': 'You must be an admin'}, 401 
     
-    stmt = db.select(Role).order_by(Role.desc())
+    stmt = db.select(Role)
     roles = db.session.scalars(stmt)
     return RoleSchema(many=True).dump(roles)
 
@@ -40,6 +40,7 @@ def update_one_role(id):
     role = db.session.scalar(stmt)
     if role:
        role.name = request.json.get('name') or role.name
+       role.notes = request.json.get('notes') or role.notes
        db.session.commit()
        return RoleSchema().dump(role)
     else: 
@@ -54,8 +55,9 @@ def create_one_role():
     data = RoleSchema().load(request.json)
         
     role = Role(
-        name = data['name']
-       ## user_id = get_jwt_identity()
+        name = data['name'],
+        notes = data['notes'],
+        ## user_id = get_jwt_identity()
     )
     # Add & commit project to Database
     db.session.add(role)

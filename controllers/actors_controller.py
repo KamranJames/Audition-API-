@@ -34,7 +34,6 @@ def create_one_actor():
     data = ActorSchema().load(request.json)
         
     actor = Actor(
-        # Id
         f_name = data['f_name'],
         l_name = data['l_name'],
         agency = data['agency'], 
