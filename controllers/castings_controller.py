@@ -36,12 +36,11 @@ def create_one_casting():
     data = CastingSchema().load(request.json)
         
     casting = Casting(
-        ##authorize()
         casting_assosciate = data['casting_assosciate'],
         location = data['location'],
         agency = data['agency'],
         project_id = data['project_id']
-       ## user_id = get_jwt_identity()
+
     )
     # Add & commit casting to Database
     db.session.add(casting)

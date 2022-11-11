@@ -15,18 +15,18 @@ users_bp = Blueprint('users', __name__, url_prefix='/users')
 @users_bp.route('/')
 @jwt_required()
 def get_all_users():
-    if not authorize():
-        return {'error': 'You must be an admin'}, 401 
+    authorize()
     
     stmt = db.select(User).order_by(User.name)
     users = db.session.scalars(stmt)
-    ##user_id = get_jwt_identity()
     return UserSchema(many=True).dump(users)
 
 
 ## Get a single user
 @users_bp.route('/<int:id>/')
+@jwt_required()
 def get_one_user(id):
+    authorize()
     stmt = db.select(User).filter_by(id=id)
     user = db.session.scalar(stmt)
     if user:
@@ -34,38 +34,20 @@ def get_one_user(id):
     else:
         return {'error': f'User not found with id {id}'}, 404
 
-## Create a new user
-@users_bp.route('/', methods=['POST'])
-def auth_register():
-    try:
-        # Create a new User model instance
-        user = User(
-            name = request.json['name'],
-            email=request.json['email'],
-            password=bcrypt.generate_password_hash(request.json['password']).decode('utf-8')
-        )
-        # Add & commit user to Database
-        db.session.add(user)
-        db.session.commit()
-        return UserSchema(exclude=['password']).dump(user), 201
-        #Error message if user is already registered.
-    except IntegrityError:
-        return {'error': 'Email address already in use'}, 409
 
 #Delete a user from the db
 @users_bp.route('/<int:id>/', methods = ['DELETE'])
 @jwt_required()
 def delete_one_user(id):
-    if not authorize():
-        return {'error': 'You must be an admin'}, 401 
+    authorize()
     
     stmt = db.select(User).filter_by(id=id)
-    users = db.session.scalar(stmt)
-    if User: 
+    user = db.session.scalar(stmt)
+    if user: 
         #Delete and commit changes to db
-           db.session.delete(User)
+           db.session.delete(user)
            db.session.commit()
-           return {'message': f"User '{User.title}' deleted successfully"}
+           return {'message': f"User '{user.name}' deleted successfully"}
     else:
         return {'error': f'User not found with id {id}'}, 404
 

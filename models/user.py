@@ -22,7 +22,7 @@ class User(db.Model):
     
 # User Schema 
 class UserSchema(ma.Schema):
-    projects = fields.List(fields.Nested('ProjectSchema', exclude=['user']))
+    projects = fields.List(fields.Nested('ProjectSchema', exclude=['projects']))
     comments = fields.List(fields.Nested('CommentSchema', exclude=['user',]))
     
     #Set Password Parameters

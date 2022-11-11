@@ -9,7 +9,6 @@ class Role(db.Model):
      id = db.Column(db.Integer, primary_key=True)
      name = db.Column(db.String(20), nullable=False)
      notes = db.Column(db.String(100), nullable=False)
-     ##project = db.Column(db.String, nullable=False)
 
      project_id = db.Column(db.Integer, db.ForeignKey('projects.id'), nullable=False)
      actor_id = db.Column(db.Integer, db.ForeignKey('actors.id'), nullable=False)
