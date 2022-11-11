@@ -23,12 +23,12 @@ class User(db.Model):
 # User Schema 
 class UserSchema(ma.Schema):
     projects = fields.List(fields.Nested('ProjectSchema', exclude=['user']))
-    comments = fields.List(fields.Nested('CommentSchema', exclude=['user']))
+    comments = fields.List(fields.Nested('CommentSchema', exclude=['user',]))
     
     #Set Password Parameters
     password = fields.String(required=True, validate=And(
         Length(min=6, error='Password must be at least 8 characters long.'),
-        Regexp('^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[#?!@$%^&*-+=]).*$', error='Password must include one one uppercase letter, one lowercase letter, one digit and a special character.')
+        Regexp('^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[#?!@$%^&*-+=]).*$', error='Password must include one uppercase letter, one lowercase letter, one digit and a special character.')
     ))
     name = fields.String(required=True, validate=Length(min=1, max=20, error='Name must be at least 1 character min and 20 characters max'))
 

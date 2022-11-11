@@ -1,6 +1,8 @@
 from flask import Blueprint, request
 from init import db
 from models.actor import Actor, ActorSchema
+from controllers.auth_controller import authorize
+from flask_jwt_extended import jwt_required, get_jwt_identity
 
 ## ACTORS CONTROLLER
 
@@ -9,10 +11,10 @@ from models.actor import Actor, ActorSchema
 actors_bp = Blueprint('actors', __name__, url_prefix='/actors')
 
 @actors_bp.route('/')
-##@jwt_required()
+@jwt_required()
 def get_all_actors():
-    ##if not authorize():
-        ##return {'error': 'You must be an admin'}, 401 
+    if not authorize():
+        return {'error': 'You must be an admin'}, 401 
     
     stmt = db.select(Actor)
     actors = db.session.scalars(stmt)
@@ -28,7 +30,7 @@ def one_actor(id):
 
 ##Create a single actor
 @actors_bp.route('/', methods=['POST'])
-##@jwt_required()
+@jwt_required()
 def create_one_actor():
     # Create a new actor model instance
     data = ActorSchema().load(request.json)
@@ -46,9 +48,8 @@ def create_one_actor():
     return ActorSchema().dump(actor), 201
 
 @actors_bp.route('/<int:id>/', methods=['PUT', 'PATCH'])
-##@jwt_required()
+@jwt_required()
 def update_one_actor(id):
-    ##authorize()
     stmt = db.select(Actor).filter_by(id=id)
     actor = db.session.scalar(stmt)
     if actor:
@@ -65,9 +66,9 @@ def update_one_actor(id):
 
 ## Delete an actor from db
 @actors_bp.route('/<int:id>/', methods=['DELETE'])
-##@jwt_required()
+@jwt_required()
 def delete_one_actor(id):
-    ##authorize()
+    authorize()
 
     stmt = db.select(Actor).filter_by(id=id)
     actor = db.session.scalar(stmt)

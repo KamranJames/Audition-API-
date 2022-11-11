@@ -3,7 +3,8 @@ from init import db, bcrypt
 from datetime import timedelta
 from models.user import User, UserSchema
 from sqlalchemy.exc import IntegrityError
-from flask_jwt_extended import create_access_token, get_jwt_identity 
+from flask_jwt_extended import create_access_token, get_jwt_identity, jwt_required, get_jwt_identity
+
 
 auth_bp = Blueprint('auth', __name__, url_prefix='/auth')
 
@@ -11,18 +12,21 @@ auth_bp = Blueprint('auth', __name__, url_prefix='/auth')
 
 @auth_bp.route('/register/', methods=['POST'])
 def auth_register():
+
+    #Loads requests through schema to validate
+    data = UserSchema().load(request.json)
+
     try:
         # Create a new User model instance from the user_info
         user = User(
             email = request.json['email'],
             password = bcrypt.generate_password_hash(request.json['password']).decode('utf8'),
-            name = request.json.get['name']
+            name = request.json['name']
         )
-        # Add and commit user to DB
+        # Commits an added user to db
         db.session.add(user)
         db.session.commit()
-        # Respond to client
-        return UserSchema(exclude=['password']).dump(user), 201
+        return UserSchema(exclude=['password', 'projects', 'comments', 'is_admin'] ).dump(user), 201
     except IntegrityError:
         return {'error': 'Email address already in use'}, 409
     except KeyError:
@@ -41,6 +45,7 @@ def auth_login():
         return {'email': user.email, 'token': token, 'is_admin': user.is_admin}
     else:
         return {'error': 'Invalid email or password'}, 401
+
 
 def authorize():
     user_id = get_jwt_identity()
