@@ -18,7 +18,7 @@ class Comment(db.Model):
 
 class CommentSchema(ma.Schema):
     user = fields.Nested('UserSchema', only=['name', 'email'])
-    card = fields.Nested('ProjectSchema')
+    project = fields.Nested('ProjectSchema')
     message = fields.String(required=True, validate=Length(min=1, max=50, error='message must be at least 1 character min and 50 characters max'))
 
     class Meta:

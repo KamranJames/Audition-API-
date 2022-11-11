@@ -54,7 +54,7 @@ def update_one_project(id):
 
 #Create a single project
 @projects_bp.route('/', methods=['POST'])
-##@jwt_required()
+@jwt_required()
 def create_one_project():
     data = ProjectSchema().load(request.json)
         
@@ -71,15 +71,14 @@ def create_one_project():
     return ProjectSchema().dump(project), 201
 
 ## Add comments to a project
-@projects_bp.route('/<int:card_id>/comments', methods=['POST'])
-##@jwt_required()
+@projects_bp.route('/<int:project_id>/comments', methods=['POST'])
+@jwt_required()
 def create_comment(project_id):
     stmt = db.select(Project).filter_by(id=project_id)
     project = db.session.scalar(stmt)
     if project:
         comment = Comment(
             message = request.json['message'],
-            ##user_id = get_jwt_identity(),
             project = project,
             date = date.today()
         )
