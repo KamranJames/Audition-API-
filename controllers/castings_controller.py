@@ -1,6 +1,8 @@
 from flask import Blueprint, request
 from init import db
 from models.casting import Casting, CastingSchema
+from controllers.auth_controller import authorize
+from flask_jwt_extended import jwt_required, get_jwt_identity
 
 ## Casting Controller
 
@@ -8,21 +10,19 @@ from models.casting import Casting, CastingSchema
 ## Parameters for our blueprint 
 castings_bp = Blueprint('castings', __name__, url_prefix='/castings')
 
+## Get all castings
 @castings_bp.route('/')
-##@jwt_required()
-def all_castings():
-    ##if not authorize():
-        ##return {'error': 'You must be an admin'}, 401 
+@jwt_required()
+def get_all_castings():
     
     stmt = db.select(Casting)
     castings = db.session.scalars(stmt)
     return CastingSchema(many=True).dump(castings)
 
 
-
 ##Select One casting
 @castings_bp.route('/<int:id>/')
-def one_casting(id):
+def get_one_casting(id):
     stmt = db.select(Casting).filter_by(id=id)
     casting = db.session.scalar(stmt)
     return CastingSchema().dump(casting)
@@ -30,16 +30,17 @@ def one_casting(id):
 
 ##Create a single casting
 @castings_bp.route('/', methods=['POST'])
-##@jwt_required()
+@jwt_required()
 def create_one_casting():
     # Create a new casting model instance
     data = CastingSchema().load(request.json)
         
     casting = Casting(
         ##authorize()
-        cd = data['cd'],
+        casting_assosciate = data['casting_assosciate'],
         location = data['location'],
-        agency = data['agency']
+        agency = data['agency'],
+        project_id = data['project_id']
        ## user_id = get_jwt_identity()
     )
     # Add & commit casting to Database
@@ -56,7 +57,7 @@ def update_one_casting(id):
     stmt = db.select(Casting).filter_by(id=id)
     casting = db.session.scalar(stmt)
     if casting:
-        casting.cd = request.json.get('cd') or casting.cd
+        casting.casting_assosciate = request.json.get('casting_assosciate') or casting.casting_assosciate
         casting.location = request.json.get('location') or casting.location
         casting.agency = request.json.get('agency') or casting.agency
         db.session.commit()      
@@ -71,7 +72,7 @@ def update_one_casting(id):
 @castings_bp.route('/<int:id>/', methods=['DELETE'])
 ##@jwt_required()
 def delete_one_casting(id):
-    ##authorize()
+    authorize()
 
     stmt = db.select(Casting).filter_by(id=id)
     casting = db.session.scalar(stmt)

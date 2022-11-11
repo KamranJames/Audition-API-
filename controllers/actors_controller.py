@@ -13,8 +13,6 @@ actors_bp = Blueprint('actors', __name__, url_prefix='/actors')
 @actors_bp.route('/')
 @jwt_required()
 def get_all_actors():
-    if not authorize():
-        return {'error': 'You must be an admin'}, 401 
     
     stmt = db.select(Actor)
     actors = db.session.scalars(stmt)
@@ -39,6 +37,7 @@ def create_one_actor():
         f_name = data['f_name'],
         l_name = data['l_name'],
         agency = data['agency'], 
+        project_id = data['project_id']
        ## user_id = get_jwt_identity()
     )
     # Add & commit actor to Database
@@ -47,9 +46,11 @@ def create_one_actor():
     
     return ActorSchema().dump(actor), 201
 
+## Edit a single actor
 @actors_bp.route('/<int:id>/', methods=['PUT', 'PATCH'])
 @jwt_required()
 def update_one_actor(id):
+    authorize()
     stmt = db.select(Actor).filter_by(id=id)
     actor = db.session.scalar(stmt)
     if actor:

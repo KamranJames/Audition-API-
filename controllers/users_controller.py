@@ -1,5 +1,6 @@
 from flask import Blueprint, request
 from init import db, bcrypt
+from datetime import date
 from models.user import User, UserSchema
 from sqlalchemy.exc import IntegrityError
 from controllers.auth_controller import authorize
@@ -17,10 +18,9 @@ def get_all_users():
     if not authorize():
         return {'error': 'You must be an admin'}, 401 
     
-    stmt = db.select(User).order_by(User.desc(), User.title)
+    stmt = db.select(User).order_by(User.name)
     users = db.session.scalars(stmt)
-    if User: 
-           return UserSchema.dump()
+    ##user_id = get_jwt_identity()
     return UserSchema(many=True).dump(users)
 
 

@@ -4,7 +4,7 @@ from datetime import timedelta
 from models.user import User, UserSchema
 from sqlalchemy.exc import IntegrityError
 from flask_jwt_extended import create_access_token, get_jwt_identity, jwt_required, get_jwt_identity
-
+from flask_jwt_extended import jwt_required, get_jwt_identity
 
 auth_bp = Blueprint('auth', __name__, url_prefix='/auth')
 
@@ -17,7 +17,7 @@ def auth_register():
     data = UserSchema().load(request.json)
 
     try:
-        # Create a new User model instance from the user_info
+        # Create a new User model instance from the user info
         user = User(
             email = request.json['email'],
             password = bcrypt.generate_password_hash(request.json['password']).decode('utf8'),
@@ -35,6 +35,7 @@ def auth_register():
 
 @auth_bp.route('/login/', methods=['POST'])
 def auth_login():
+
     # Find a user by email address
     stmt = db.select(User).filter_by(email=request.json['email'])
     user = db.session.scalar(stmt)

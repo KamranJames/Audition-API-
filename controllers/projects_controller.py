@@ -4,6 +4,8 @@ from models.project import Project, ProjectSchema
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from models.comment import Comment, CommentSchema
 from datetime import date
+from controllers.auth_controller import authorize
+from flask_jwt_extended import jwt_required, get_jwt_identity
 
 
 ## Project CONTROLLER
@@ -13,14 +15,12 @@ projects_bp = Blueprint('projects', __name__, url_prefix='/projects')
 
 
 @projects_bp.route('/')
-##@jwt_required()
+@jwt_required()
 def get_all_projects():
-    ##if not authorize():
-        ##return {'error': 'You must be an admin'}, 401 
     
     stmt = db.select(Project)
     projects = db.session.scalars(stmt)
-    return ProjectSchema(many=True).dump(projects)
+    return ProjectSchema(many=True, exclude=['user_id']).dump(projects)
 
 
 ## Select a project by the id from db
@@ -29,7 +29,7 @@ def get_one_project(id):
     stmt = db.select(Project).filter_by(id=id)
     project = db.session.scalar(stmt)
     if project:
-        return ProjectSchema().dump(project)
+        return ProjectSchema(exclude=['user_id']).dump(project)
     else:
         return {'error': f'Project not found with id {id}'}, 404
  
@@ -37,8 +37,9 @@ def get_one_project(id):
 
 #Edit a single project
 @projects_bp.route('/<int:id>/', methods = ['PUT', 'PATCH'])
-#@jwt_required()
+@jwt_required()
 def update_one_project(id):
+    authorize()
     stmt = db.select(Project).filter_by(id=id)
     project = db.session.scalar(stmt)
     if project:
