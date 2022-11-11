@@ -1,6 +1,8 @@
 from flask import Blueprint, request
 from init import db
 from models.role import Role, RoleSchema
+from flask_jwt_extended import jwt_required, get_jwt_identity
+from controllers.auth_controller import authorize
 
 ## ROLE CONTROLLER
 
@@ -10,10 +12,8 @@ roles_bp = Blueprint('roles', __name__, url_prefix='/roles')
 
 #Get all roles
 @roles_bp.route('/')
-##@jwt_required()
+@jwt_required()
 def get_all_roles():
-    ##if not authorize():
-        ##return {'error': 'You must be an admin'}, 401 
     
     stmt = db.select(Role)
     roles = db.session.scalars(stmt)
@@ -22,6 +22,7 @@ def get_all_roles():
 
 ## Select one role 
 @roles_bp.route('/<int:id>/')
+@jwt_required()
 def get_one_role(id):
     stmt = db.select(Role).filter_by(id=id)
     role = db.session.scalar(stmt)
@@ -33,9 +34,9 @@ def get_one_role(id):
 
 #Edit a single role
 @roles_bp.route('/<int:id>/', methods = ['PUT', 'PATCH'])
-#@jwt_required()
+@jwt_required()
 def update_one_role(id):
-    ##authorize()
+    authorize()
     stmt = db.select(Role).filter_by(id=id)
     role = db.session.scalar(stmt)
     if role:
@@ -56,8 +57,9 @@ def create_one_role():
         
     role = Role(
         name = data['name'],
-        notes = data['notes']
-        ## user_id = get_jwt_identity()
+        notes = data['notes'],
+        project_id = data['project_id'],
+        actor_id = data['actor_id']
     )
     # Add & commit project to Database
     db.session.add(role)

@@ -1,7 +1,6 @@
 from flask import Blueprint, request
 from init import db
 from models.project import Project, ProjectSchema
-from flask_jwt_extended import jwt_required, get_jwt_identity
 from models.comment import Comment, CommentSchema
 from datetime import date
 from controllers.auth_controller import authorize
@@ -64,7 +63,6 @@ def create_one_project():
         director = data['director'],
         year = data['year'], 
         status = data['status']
-       ## user_id = get_jwt_identity()
     )
     # Add & commit project to Database
     db.session.add(project)
@@ -91,22 +89,6 @@ def create_comment(project_id):
     else:
         return {'error': f'Project not found with id {id}'}, 404
 
-
-
-## Delete a project from db
-@projects_bp.route('/<int:id>/', methods=['DELETE'])
-##@jwt_required()
-def delete_one_project(id):
-    ##authorize()
-
-    stmt = db.select(Project).filter_by(id=id)
-    project = db.session.scalar(stmt)
-    if project:
-        db.session.delete(project)
-        db.session.commit()
-        return {'message': f"Project {project.name} deleted successfully"}
-    else:
-        return {'error': f'Project not found with id {id}'}, 404
 
 
 
