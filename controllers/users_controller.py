@@ -55,15 +55,17 @@ def delete_one_user(id):
 @users_bp.route('/<int:id>/', methods = ['PUT, PATCH'])
 @jwt_required()
 def edit_user(id):
-    if not authorize():
-        return {'error': 'You must be an admin'}, 401 
+    authorize()
     
     stmt = db.select(User).filter_by(id=id)
-    users = db.session.scalar(stmt)
-    if User: 
-        #Edit and commit changes to db
-           db.session.commit()
-           return {'message': f"User '{User.title}' changed successfully"}
+    user = db.session.scalar(stmt)
+    if user: 
+        user.name = request.json.get('name') or user.name
+        user.email = request.json.get('email') or user.email
+        user.password = request.json.get('password') or user.password
+        user.is_admin = request.json.get('is_admin') or user.is_admin
+        db.session.commit()      
+        return {'message': "User info changed successfully"}
     else:
         return {'error': f'User not found with id {id}'}, 404
 
