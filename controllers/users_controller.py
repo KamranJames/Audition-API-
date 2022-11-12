@@ -20,7 +20,7 @@ def get_all_users():
 
     stmt = db.select(User)
     user = db.session.scalars(stmt)
-    return UserSchema().dump(user)
+    return UserSchema(many=True).dump(user)
 
 
 
