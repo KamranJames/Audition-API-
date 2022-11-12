@@ -52,7 +52,7 @@ def authorize(id):
     user_id = get_jwt_identity()
     stmt = db.select(User).filter_by(id=user_id)
     user = db.session.scalar(stmt)
-    if user.id != id:
+    if not user.is_admin:
        abort(401)
 
 

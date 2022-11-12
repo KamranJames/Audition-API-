@@ -1,6 +1,7 @@
 from flask import Blueprint, request
 from init import db
 from models.actor import Actor, ActorSchema
+from models.user import User, UserSchema
 from controllers.auth_controller import authorize
 from flask_jwt_extended import jwt_required, get_jwt_identity
 
@@ -50,13 +51,13 @@ def create_one_actor():
 @actors_bp.route('/<int:id>/', methods=['PUT', 'PATCH'])
 @jwt_required()
 def update_one_actor(id):
-    authorize()
     stmt = db.select(Actor).filter_by(id=id)
     actor = db.session.scalar(stmt)
     if actor:
         actor.f_name = request.json.get('f_name') or actor.f_name
         actor.l_name = request.json.get('l_name') or actor.l_name
         actor.agency = request.json.get('agency') or actor.agency
+        authorize(User.is_admin)
         db.session.commit()      
         return ActorSchema().dump(actor)
     else:
@@ -69,11 +70,11 @@ def update_one_actor(id):
 @actors_bp.route('/<int:id>/', methods=['DELETE'])
 @jwt_required()
 def delete_one_actor(id):
-    authorize()
 
     stmt = db.select(Actor).filter_by(id=id)
     actor = db.session.scalar(stmt)
     if actor:
+        authorize(User.is_admin)
         db.session.delete(actor)
         db.session.commit()
         return {'message': f"Actor '{actor.f_name, actor.l_name} 'deleted successfully"}

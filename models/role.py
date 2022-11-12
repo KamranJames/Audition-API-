@@ -15,7 +15,7 @@ class Role(db.Model):
  
     
 
-     projects = db.relationship('Project', back_populates='roles')
+     projects = db.relationship('Project', back_populates='roles', cascade='all, delete')
      
 
 ## Role Schema

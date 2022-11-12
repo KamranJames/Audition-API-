@@ -29,14 +29,14 @@ def seed_db():
         User(
             name ='John Waters',
             email='johnwaters@gmail.com',
-            password=bcrypt.generate_password_hash('coder').decode('utf-8'),
+            password=bcrypt.generate_password_hash('Coder!23').decode('utf-8'),
             is_admin=True
         ),
 
         User(
             name=['Jack Reacher'],
             email=['jack@reacher.com'],
-            password=bcrypt.generate_password_hash('kitten').decode('utf-8'),
+            password=bcrypt.generate_password_hash('Kitten!23').decode('utf-8'),
         )
     ]
 

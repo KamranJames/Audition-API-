@@ -38,8 +38,8 @@ def get_one_project(id):
 #Edit a single project
 @projects_bp.route('/<int:id>/', methods = ['PUT', 'PATCH'])
 @jwt_required()
+##Chec to see if user has admin permissions.
 def update_one_project(id):
-    authorize()
     stmt = db.select(Project).filter_by(id=id)
     project = db.session.scalar(stmt)
     if project:
@@ -47,6 +47,8 @@ def update_one_project(id):
        project.director = request.json.get('director') or project.director
        project.year = request.json.get('year') or project.year
        project.status = request.json.get('status') or project.status
+       ##Requires authorizatiion
+       authorize(User.is_admin)
        db.session.commit()
        return ProjectSchema().dump(project)
     else: 

@@ -21,11 +21,11 @@ class Project(db.Model):
      ##ForeignKeys
      user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
  
-     user = db.relationship('User', back_populates ='projects')
+     user = db.relationship('User', back_populates ='projects', cascade='all, delete')
      castings = db.relationship('Casting', back_populates ='projects', cascade='all, delete')
      actors = db.relationship('Actor', back_populates ='projects', cascade='all, delete')
      comments = db.relationship('Comment', back_populates ='projects', cascade='all, delete')
-     roles = db.relationship('Role', back_populates ='projects', cascade='all, delete')
+     roles = db.relationship('Role', back_populates ='projects',)
 
 ## Project Schema
 class ProjectSchema(ma.Schema):
