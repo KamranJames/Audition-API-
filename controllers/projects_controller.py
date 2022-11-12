@@ -2,6 +2,7 @@ from flask import Blueprint, request
 from init import db
 from models.project import Project, ProjectSchema
 from models.comment import Comment, CommentSchema
+from models.user import User, UserSchema
 from datetime import date
 from controllers.auth_controller import authorize
 from flask_jwt_extended import jwt_required, get_jwt_identity
@@ -79,6 +80,7 @@ def create_comment(project_id):
     if project:
         comment = Comment(
             message = request.json['message'],
+            user_id = get_jwt_identity(),
             project = project,
             date = date.today()
         )
@@ -87,6 +89,15 @@ def create_comment(project_id):
         return CommentSchema().dump(comment), 201
     else:
         return {'error': f'Project not found with id {id}'}, 404
+
+
+@projects_bp.route('/comments', methods=['GET'])
+@jwt_required()
+def get_all_comments():
+    
+    stmt = db.select(Comment)
+    comments = db.session.scalars(stmt)
+    return CommentSchema(many=True).dump(comments)
 
 
 

@@ -35,7 +35,7 @@ class ProjectSchema(ma.Schema):
     status = fields.String(required=True, validate=OneOf(VALID_STATUSES))
 
     class Meta:
-        fields = ('id','name', 'director', 'year', 'status' 'comments', 'user_id', 'casting_id', 'actor_id', 'role_id')
+        fields = ('id','name', 'director', 'year', 'status', 'comments', 'user_id', 'casting_id', 'actor_id', 'role_id')
         ordered = True
 
 

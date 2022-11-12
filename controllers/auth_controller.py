@@ -47,12 +47,12 @@ def auth_login():
     else:
         return {'error': 'Invalid email or password'}, 401
 
-
-def authorize():
+## Authorization function
+def authorize(id):
     user_id = get_jwt_identity()
     stmt = db.select(User).filter_by(id=user_id)
     user = db.session.scalar(stmt)
-    if not user.is_admin:
+    if user.id != id:
        abort(401)
 
 

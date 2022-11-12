@@ -7,7 +7,8 @@ class Comment(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     message = db.Column(db.Text)
-    date = db.Column(db.Date) # Date created
+    ## The date the comment was created
+    date = db.Column(db.Date) 
 
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     project_id = db.Column(db.Integer, db.ForeignKey('projects.id'), nullable=False)

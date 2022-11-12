@@ -15,18 +15,17 @@ users_bp = Blueprint('users', __name__, url_prefix='/users')
 @users_bp.route('/')
 @jwt_required()
 def get_all_users():
-    authorize()
-    
-    stmt = db.select(User).order_by(User.name)
-    users = db.session.scalars(stmt)
-    return UserSchema(many=True).dump(users)
+    ##if not authorize():
+        ##return {'error': 'You must be an admin'}, 401
+
+    stmt = db.select(User)
+    user = db.session.scalars(stmt)
+    return UserSchema().dump(user)
 
 
-## Get a single user
+
 @users_bp.route('/<int:id>/')
-@jwt_required()
 def get_one_user(id):
-    authorize()
     stmt = db.select(User).filter_by(id=id)
     user = db.session.scalar(stmt)
     if user:

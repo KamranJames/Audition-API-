@@ -71,9 +71,9 @@ def create_one_role():
 
 ## Delete a role from db
 @roles_bp.route('/<int:id>/', methods=['DELETE'])
-##@jwt_required()
+@jwt_required()
 def delete_one_role(id):
-    ##authorize()
+    authorize()
 
     stmt = db.select(Role).filter_by(id=id)
     role = db.session.scalar(stmt)
