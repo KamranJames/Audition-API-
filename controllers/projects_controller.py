@@ -13,7 +13,7 @@ from flask_jwt_extended import jwt_required, get_jwt_identity
 ## Parameters for our blueprint 
 projects_bp = Blueprint('projects', __name__, url_prefix='/projects')
 
-
+#Get all projects from db
 @projects_bp.route('/')
 @jwt_required()
 def get_all_projects():
@@ -25,6 +25,7 @@ def get_all_projects():
 
 ## Select a project by the id from db
 @projects_bp.route('/<int:id>/')
+@jwt_required()
 def get_one_project(id):
     stmt = db.select(Project).filter_by(id=id)
     project = db.session.scalar(stmt)
@@ -38,7 +39,7 @@ def get_one_project(id):
 #Edit a single project
 @projects_bp.route('/<int:id>/', methods = ['PUT', 'PATCH'])
 @jwt_required()
-##Chec to see if user has admin permissions.
+##Check to see if user has admin permissions.
 def update_one_project(id):
     stmt = db.select(Project).filter_by(id=id)
     project = db.session.scalar(stmt)
@@ -92,7 +93,7 @@ def create_comment(project_id):
     else:
         return {'error': f'Project not found with id {id}'}, 404
 
-
+## Gets all comments for a project
 @projects_bp.route('/comments', methods=['GET'])
 @jwt_required()
 def get_all_comments():

@@ -11,7 +11,7 @@ from flask_jwt_extended import jwt_required, get_jwt_identity
 ## Parameters for our blueprint 
 users_bp = Blueprint('users', __name__, url_prefix='/users')
 
-#Get all users/requires authentication & authorization
+#Get all users
 @users_bp.route('/')
 @jwt_required()
 def get_all_users():
@@ -21,7 +21,7 @@ def get_all_users():
     return UserSchema(many=True).dump(user)
 
 
-
+## Get one user from db n 
 
 @users_bp.route('/<int:id>/')
 def get_one_user(id):
@@ -39,7 +39,6 @@ def get_one_user(id):
 @users_bp.route('/<int:id>/', methods = ['PUT, PATCH'])
 @jwt_required()
 def edit_user(id):
-    ##authorize(user.id)
     
     stmt = db.select(User).filter_by(id=id)
     user = db.session.scalar(stmt)

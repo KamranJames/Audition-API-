@@ -2,6 +2,7 @@ from init import db, ma
 from marshmallow import fields
 from marshmallow.validate import Length
 
+## Comment Model
 class Comment(db.Model):
     __tablename__ = 'comments'
 
@@ -9,14 +10,15 @@ class Comment(db.Model):
     message = db.Column(db.Text)
     ## The date the comment was created
     date = db.Column(db.Date) 
-
+   
+    ## Foreign Keys
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     project_id = db.Column(db.Integer, db.ForeignKey('projects.id'), nullable=False)
 
     user = db.relationship("User", back_populates="comments")
     projects = db.relationship("Project", back_populates="comments")
 
-
+## Comment Schema
 class CommentSchema(ma.Schema):
     user = fields.Nested('UserSchema', only=['name', 'email'])
     project = fields.Nested('ProjectSchema')

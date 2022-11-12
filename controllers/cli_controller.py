@@ -12,6 +12,7 @@ from datetime import datetime
 
 db_commands = Blueprint('db', __name__)
 
+## Cli Commands 
 
 @db_commands.cli.command('create')
 def create_db():
