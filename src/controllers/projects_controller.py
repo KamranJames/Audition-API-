@@ -103,6 +103,22 @@ def get_all_comments():
     return CommentSchema(many=True).dump(comments)
 
 
-
-
+## Delete a project from db
+@projects_bp.route('/<int:id>/', methods=['DELETE'])
+@jwt_required()
+def delete_one_project(id):
     
+
+    stmt = db.select(Project).filter_by(id=id)
+    project = db.session.scalar(stmt)
+    if project:
+        authorize(User.is_admin)
+        db.session.delete(project)
+        db.session.commit()
+        return {'message': f'Project {project.name} deleted successfully'}
+    else:
+        return {'error': f'Project not found with id {id}'}, 404
+
+
+
+

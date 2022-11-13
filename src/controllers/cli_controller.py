@@ -53,7 +53,7 @@ def seed_db():
             director = 'John Mckin',
             year = '2022',
             status = 'Filming',
-            user_id = users[0].id
+            user_id = users[0].id,
         
         ),
         Project(
@@ -61,7 +61,7 @@ def seed_db():
             director = 'Cal Kestis',
             year = '2023',
             status = 'Pre-production',
-            user_id = users[1].id
+            user_id = users[1].id,
         
         )
     ]

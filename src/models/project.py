@@ -26,7 +26,7 @@ class Project(db.Model):
      actors = db.relationship('Actor', back_populates ='projects', cascade='all, delete')
      comments = db.relationship('Comment', back_populates ='projects', cascade='all, delete')
      roles = db.relationship('Role', back_populates ='projects', cascade='all, delete')
-     
+
 
 ## Project Schema
 class ProjectSchema(ma.Schema):
