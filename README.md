@@ -11,7 +11,7 @@
 DATABASE_URL=postgresql+psycopg2://db_dev:passwordcoder@127.0.01:5432/audition_db<p>
 JWT_SECRET_KEY=coderkey
 
-7. From terminal cd into /src than enter commands: Flask db create, Flask db seed
+7. From terminal cd into /src than enter commandss Flask db create, Flask db seed.
 8. If you would like to run queries as an admin in Postman login with these credentials: 
 
 http://127.0.0.1:8080/auth/login

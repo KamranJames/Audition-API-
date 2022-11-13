@@ -70,5 +70,24 @@ def delete_one_user(id):
     else:
         return {'error': f'User not found with id {id}'}, 404
 
+
+#Edit a single user
+@users_bp.route('/<int:id>/', methods = ['PUT', 'PATCH'])
+@jwt_required()
+##Check to see if user has admin permissions.
+def update_one_user(id):
+    stmt = db.select(User).filter_by(id=id)
+    user = db.session.scalar(stmt)
+    if user:
+       user.name = request.json.get('name') or user.name
+       user.email = request.json.get('email') or user.email
+       user.password = request.json.get('password') or user.password
+       ##Requires authorizatiion
+       authorize(User.is_admin)
+       db.session.commit()
+       return UserSchema().dump(user)
+    else: 
+        return {'error': f'User not found with {id}'}, 404
+
         
 
