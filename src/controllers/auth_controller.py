@@ -3,12 +3,13 @@ from init import db, bcrypt
 from datetime import timedelta
 from models.user import User, UserSchema
 from sqlalchemy.exc import IntegrityError
-from flask_jwt_extended import create_access_token, get_jwt_identity, jwt_required, get_jwt_identity
-from flask_jwt_extended import jwt_required, get_jwt_identity
+from flask_jwt_extended import create_access_token, get_jwt_identity
 
 auth_bp = Blueprint('auth', __name__, url_prefix='/auth')
 
  ## Authorization Controller
+
+
 
 @auth_bp.route('/register/', methods=['POST'])
 def auth_register():

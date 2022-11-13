@@ -105,14 +105,15 @@ def seed_db():
         Role(
             name = 'Zombie man',
             notes = 'Searching for any gender, any ages, dance ability is a plus.',
-            project_id = projects[0].id,
-            actor_id = actors[0].id
+            projects = projects[0],
+            actors = actors[0]
+
         ),
         Role(
             name = 'Sephiroths son',
             notes = 'Searching for a male, ages 25 to 30, martial arts experience required.',
-            project_id = projects[1].id,
-            actor_id = actors[1].id
+            projects = projects[1],
+            actors = actors[1]
         )
     ]
 

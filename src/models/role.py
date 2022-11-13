@@ -15,9 +15,9 @@ class Role(db.Model):
      actor_id = db.Column(db.Integer, db.ForeignKey('actors.id'), nullable=False)
  
     
-
+## TRY REMOVE CASCADE DELETE HERE
      projects = db.relationship('Project', back_populates='roles', cascade='all, delete')
-     
+     actors = db.relationship('Actor', back_populates='roles', cascade='all, delete')
 
 ## Role Schema
 class RoleSchema(ma.Schema):
@@ -27,6 +27,6 @@ class RoleSchema(ma.Schema):
  
     
     class Meta:
-        fields = ('id', 'name', 'project','notes', 'actor', 'project_id', 'actor_id')
+        fields = ('id', 'name','notes', 'project_id', 'actor_id')
         ordered = True
 

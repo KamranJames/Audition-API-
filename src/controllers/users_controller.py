@@ -21,9 +21,10 @@ def get_all_users():
     return UserSchema(many=True).dump(user)
 
 
-## Get one user from db n 
+## Get one user from db 
 
 @users_bp.route('/<int:id>/')
+@jwt_required()
 def get_one_user(id):
     stmt = db.select(User).filter_by(id=id)
     user = db.session.scalar(stmt)
@@ -52,4 +53,22 @@ def edit_user(id):
         return {'message': "User info changed successfully"}
     else:
         return {'error': f'User not found with id {id}'}, 404
+
+## Delete a user from db
+@users_bp.route('/<int:id>/', methods=['DELETE'])
+@jwt_required()
+def delete_one_user(id):
+    
+
+    stmt = db.select(User).filter_by(id=id)
+    user = db.session.scalar(stmt)
+    if user:
+        ##authorize(User.is_admin)
+        db.session.delete(user)
+        db.session.commit()
+        return {'message': f'User {user.name} deleted successfully'}
+    else:
+        return {'error': f'User not found with id {id}'}, 404
+
+        
 

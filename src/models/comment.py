@@ -25,5 +25,5 @@ class CommentSchema(ma.Schema):
     message = fields.String(required=True, validate=Length(min=1, max=50, error='message must be at least 1 character min and 50 characters max'))
 
     class Meta:
-        fields = ('id', 'message', 'date', 'project', 'user')
+        fields = ('id', 'message', 'date', 'project', 'user_id', 'project_id')
         ordered = True

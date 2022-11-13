@@ -15,8 +15,9 @@ class Actor(db.Model):
 
 ## Foreign Key
      project_id = db.Column(db.Integer, db.ForeignKey('projects.id'), nullable=False)
-     
+     ## Try remove cascade delete here
      projects = db.relationship("Project", back_populates="actors", cascade='all, delete' )
+     roles = db.relationship('Role', back_populates='actors', cascade='all, delete')
      
 ## Actor Schema
 class ActorSchema(ma.Schema):

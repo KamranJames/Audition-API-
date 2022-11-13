@@ -11,8 +11,8 @@
 DATABASE_URL=postgresql+psycopg2://db_dev:passwordcoder@127.0.01:5432/audition_db<p>
 JWT_SECRET_KEY=coderkey
 
-6.  Flask db create, Flask db seed
-7. If you would like to run queries as an admin in Postman login with these credentials: 
+7. From terminal cd into /src than enter commands: Flask db create, Flask db seed
+8. If you would like to run queries as an admin in Postman login with these credentials: 
 
 http://127.0.0.1:8080/auth/login
 
@@ -67,7 +67,7 @@ I have chosen SQLAlchemy as it is a great tool to produce queries from objects c
 [End point documentation](https://www.dropbox.com/s/t3zmhrb8hcd6qzr/Audition%20API%20endpoint%20documentation.pdf?dl=0)
 
 # R6
-![ERD](./imgs/ERD.png)
+![ERD](./docs/imgs/ERD.png)
 ## R7
 **The third party services that are used in my application are**:
 
@@ -94,14 +94,14 @@ DateTime - Utilized to commit the date a new user was created or a new comment.
 
 At the base level of our API, the inner workings are all connected through the relationships they share with one another. I will use the project model as a first example as it forms the foundation of my database. As a parent of multiple child models within our function it contains nestled within it, various relationships that are backpopulated such as User, Castings, Actors, Comments and Roles, it also contains the FK user_id, this is demonstrating that every single model within our DB shares a relationship with projects in one way or another, these are also referenced with the fields class within the Project Schema.
 In the example provided below you can see how all of these are connected to our project model.
-![Example](./imgs/1.png)
+![Example](./docs/imgs/1.png)
  
  If we move onto the child of the projects model the role model, it contains the project_id FK as a column within it's table, accompanied by the child of the Role model, the actor_id FK. Within the Role models schemas is contained the data for these two FK's, as they are referenced within the role cli_controller when inserting data, this way we can track what project and what actor are connected to the role we are querying. The actor model being a child of the role model calls the backpopulates command to establish that they share a relationship and also contains the project_id FK, which too is stored within the role schema, this way we can attach the project that the actor is connected to via its project_id when querying.
 
 As mentioned previously the Casting model is a child of the parent Project model, it contains a project_id foreign key column within it tables, that way it can store the data of what project is associated with what casting. This information is able to be accessed and seeded into the db through Cli Commands, below is an example in which we are connecting this casting data to the first project contained within the db.
 
 
-![Example2](./imgs/2.png)
+![Example2](./docs/imgs/2.png)
 We also have a comment model which shares a relationship with both the project model and user model, containing both their FK ids within it's table and schemas, this way we can connect a users comment to a project. 
 Tracing back to the User model which obviously shares a relationship with comments but too shares a relationship with the Project model directly as it contains both the projects and comments FK.
 
