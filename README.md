@@ -64,7 +64,7 @@ I have chosen SQLAlchemy as it is a great tool to produce queries from objects c
 
 
 # R5
-[End point documentation](https://www.dropbox.com/s/t3zmhrb8hcd6qzr/Audition%20API%20endpoint%20documentation.pdf?dl=0)
+[End point documentation](https://www.dropbox.com/s/o0f7pf7e2wgl42a/Audition%20API%20endpoint%20finalizaed.pdf?dl=0)
 
 # R6
 ![ERD](./docs/imgs/ERD.png)
