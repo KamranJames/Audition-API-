@@ -39,7 +39,7 @@ My intent is to overcome these setbacks through the implementation of an Auditio
 
   
 
-The features of this database will allow a user to store information relating to a project. Through this project users will be able to attach roles of the project any actors or roles associated with that project, as well as casting directors connected to a project. This could be wildly beneficial to not only an actor but the majority of different positions on a film production, with the potential to scale up and serve as a major production database when constructing a feature film or television show, minimizing the overwhelming amount of moving parts, across multiple departments within the industry and ensuring less room for errors through one simple database. </p>
+The features of this database will allow a user to store information relating to a project. Through this project users will be able to create a project and attach any actors or roles associated with that project, as well as casting directors connected to a project. This could be wildly beneficial to not only an actor but the majority of different positions on a film production, with the potential to scale up and serve as a major production database when constructing a feature film or television show, minimizing the overwhelming amount of moving parts, across multiple departments within the industry and ensuring less room for errors through one simple database. </p>
 
   
 
