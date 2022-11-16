@@ -11,7 +11,7 @@
 DATABASE_URL=postgresql+psycopg2://db_dev:passwordcoder@127.0.01:5432/audition_db<p>
 JWT_SECRET_KEY=coderkey
 
-7. From terminal cd into /src than enter commandss Flask db create, Flask db seed.
+7. From terminal cd into /src then enter commandss Flask db create, Flask db seed.
 8. If you would like to run queries as an admin in Postman login with these credentials: 
 
 http://127.0.0.1:8080/auth/login
@@ -29,7 +29,7 @@ Method: Get
 
   
 
-*What Problem does this project solve? Why is it a _problem_ that needs solving? 
+What Problem does this project solve? Why is it a _problem_ that needs solving? 
 
 <p>As an actor for over 10 years, I found it incredibly hard to keep track of the thousands of auditions I had done throughout a single year. Sometimes you may book a job or get a callback two months down the line, you may not remember what you wore, any notes the casting director gave you or even what the project was.</p> <p>
 
